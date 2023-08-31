@@ -188,4 +188,15 @@ public class Items
         new InvisibleInk(),
     };
 
+    [Description("The list of Undroppable Keycards.")]
+    public List<UndroppableKeycard> UndroppableKeycards { get; private set; } = new()
+    {
+        new UndroppableKeycard(),
+    };
+
+    [Description("The list of Laxatives.")]
+    public List<Laxatives> Laxatives { get; private set; } = new()
+    {
+        new Laxatives(),
+    };
 }
