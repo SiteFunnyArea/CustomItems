@@ -50,6 +50,9 @@ using Player = Exiled.Events.Handlers.Player;
 
         private void OnUsingItem(UsedItemEventArgs ev)
         {
+        if (!Check(ev.Player.CurrentItem))
+            return;
+
         ev.Player.RemoveItem(ev.Player.CurrentItem);
         Debug.Log("Server recieved Item");
         }

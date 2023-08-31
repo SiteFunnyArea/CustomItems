@@ -50,12 +50,18 @@ using Player = Exiled.Events.Handlers.Player;
 
         private void OnUsingItem(UsedItemEventArgs ev)
         {
+        if (!Check(ev.Player.CurrentItem))
+            return;
+
         ev.Player.RemoveItem(ev.Player.CurrentItem);
         Debug.Log("Server recieved Item");
         }
 
     protected override void OnDropping(DroppingItemEventArgs ev)
     {
+        if (!Check(ev.Player.CurrentItem))
+            return;
+
         ev.Player.Kill("Shouldn't have dropped the Undroppable Keycard.");
         base.OnDropping(ev);
     }
