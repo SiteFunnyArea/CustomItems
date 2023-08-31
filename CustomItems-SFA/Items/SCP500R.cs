@@ -28,8 +28,8 @@ using Player = Exiled.Events.Handlers.Player;
         {
             new()
             {
-                Chance = 0,
-                Location = SpawnLocationType.InsideGateB,
+                Chance = 100,
+                Location = SpawnLocationType.InsideLczArmory,
             },
         },
         };
