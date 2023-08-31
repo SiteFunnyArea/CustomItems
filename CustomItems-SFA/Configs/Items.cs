@@ -164,9 +164,9 @@ public class Items
         new AutoGun(),
     };
 
-    [Description("The list of InstantGrenades.")]
-    public List<InstantGrenade> InstantGrenades { get; private set; } = new()
+    [Description("The list of ImpactGrenades.")]
+    public List<ImpactGrenade> ImpactGrenades { get; private set; } = new()
     {
-        new InstantGrenade(),
+        new ImpactGrenade(),
     };
 }
