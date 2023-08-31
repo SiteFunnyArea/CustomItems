@@ -171,8 +171,8 @@ public class Items
     };
 
     [Description("The list of SCP 500-Rs.")]
-    public List<SCP500R> SCP500Rs { get; private set; } = new()
+    public List<Scp500R> Scp500Rs { get; private set; } = new()
     {
-        new SCP500R(),
+        new Scp500R(),
     };
 }
