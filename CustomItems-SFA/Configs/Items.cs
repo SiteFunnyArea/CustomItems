@@ -11,6 +11,7 @@ using CustomItems.Items;
 
 namespace CustomItems.Configs;
 
+using CustomItems_SFA.Items;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -161,5 +162,11 @@ public class Items
     public List<AutoGun> AutoGuns { get; private set; } = new()
     {
         new AutoGun(),
+    };
+
+    [Description("The list of InstantGrenades.")]
+    public List<InstantGrenade> InstantGrenades { get; private set; } = new()
+    {
+        new InstantGrenade(),
     };
 }
