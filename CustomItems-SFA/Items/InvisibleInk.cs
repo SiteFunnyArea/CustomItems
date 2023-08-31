@@ -28,7 +28,7 @@ using Player = Exiled.Events.Handlers.Player;
         {
             new()
             {
-                Chance = 100,
+                Chance = 0,
                 Location = SpawnLocationType.InsideLczArmory,
             },
         },
