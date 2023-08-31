@@ -175,4 +175,17 @@ public class Items
     {
         new Scp500R(),
     };
+
+    [Description("The list of Steroids.")]
+    public List<Steroids> Steroids { get; private set; } = new()
+    {
+        new Steroids(),
+    };
+
+    [Description("The list of Invisible Ink.")]
+    public List<InvisibleInk> InvisibleInk { get; private set; } = new()
+    {
+        new InvisibleInk(),
+    };
+
 }
