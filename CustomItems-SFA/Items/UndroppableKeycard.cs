@@ -10,7 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using Player = Exiled.Events.Handlers.Player;
 
 
 
@@ -36,19 +35,18 @@ using Player = Exiled.Events.Handlers.Player;
 
     protected override void SubscribeEvents()
         {
-            Player.UsingItem += OnUsingItem;
-
-            base.SubscribeEvents();
+        Exiled.Events.Handlers.Player.UsingItem += OnUsingItem;
+        base.SubscribeEvents();
         }
 
         protected override void UnsubscribeEvents()
         {
-            Player.UsingItem -= OnUsingItem;
+        Exiled.Events.Handlers.Player.UsingItem -= OnUsingItem;
 
-            base.UnsubscribeEvents();
+        base.UnsubscribeEvents();
         }
 
-        private void OnUsingItem(UsedItemEventArgs ev)
+        private void OnUsingItem(UsingItemEventArgs ev)
         {
         if (!Check(ev.Player.CurrentItem))
             return;

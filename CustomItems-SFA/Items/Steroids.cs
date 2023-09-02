@@ -36,19 +36,19 @@ using Player = Exiled.Events.Handlers.Player;
 
         protected override void SubscribeEvents()
         {
-            Player.UsingItem += OnUsingItem;
+            Exiled.Events.Handlers.Player.UsingItem += OnUsingItem;
 
             base.SubscribeEvents();
         }
 
         protected override void UnsubscribeEvents()
         {
-            Player.UsingItem -= OnUsingItem;
+        Exiled.Events.Handlers.Player.UsingItem -= OnUsingItem;
 
             base.UnsubscribeEvents();
         }
 
-        private void OnUsingItem(UsedItemEventArgs ev)
+        private void OnUsingItem(UsingItemEventArgs ev)
         {
         if (!Check(ev.Player.CurrentItem))
             return;

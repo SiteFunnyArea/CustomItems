@@ -48,7 +48,7 @@ using Player = Exiled.Events.Handlers.Player;
             base.UnsubscribeEvents();
         }
 
-        private void OnUsingItem(UsedItemEventArgs ev)
+        private void OnUsingItem(UsingItemEventArgs ev)
         {
         if (!Check(ev.Player.CurrentItem))
             return;

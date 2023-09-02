@@ -11,7 +11,6 @@ using CustomItems.Items;
 
 namespace CustomItems.Configs;
 
-using CustomItems_SFA.Items;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -162,41 +161,5 @@ public class Items
     public List<AutoGun> AutoGuns { get; private set; } = new()
     {
         new AutoGun(),
-    };
-
-    [Description("The list of ImpactGrenades.")]
-    public List<ImpactGrenade> ImpactGrenades { get; private set; } = new()
-    {
-        new ImpactGrenade(),
-    };
-
-    [Description("The list of SCP 500-Rs.")]
-    public List<Scp500R> Scp500Rs { get; private set; } = new()
-    {
-        new Scp500R(),
-    };
-
-    [Description("The list of Steroids.")]
-    public List<Steroids> Steroids { get; private set; } = new()
-    {
-        new Steroids(),
-    };
-
-    [Description("The list of Invisible Ink.")]
-    public List<InvisibleInk> InvisibleInk { get; private set; } = new()
-    {
-        new InvisibleInk(),
-    };
-
-    [Description("The list of Undroppable Keycards.")]
-    public List<UndroppableKeycard> UndroppableKeycards { get; private set; } = new()
-    {
-        new UndroppableKeycard(),
-    };
-
-    [Description("The list of Laxatives.")]
-    public List<Laxatives> Laxatives { get; private set; } = new()
-    {
-        new Laxatives(),
     };
 }
