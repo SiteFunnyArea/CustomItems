@@ -16,7 +16,7 @@ using UnityEngine;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.KeycardJanitor)]
     public class UndroppableKeycard : CustomItem
     {
-        public override uint Id { get; set; } = 70;
+        public override uint Id { get; set; } = 23;
         public override string Name { get; set; } = "Undroppable Keycard";
         public override string Description { get; set; } = "Well it's not exactly undroppable... But if you do drop it, you will fucking die.";
         public override float Weight { get; set; } = 1f;

@@ -1,9 +1,12 @@
 ﻿namespace CustomItems_SFA.Items;
 
+using CustomPlayerEffects;
 using Exiled.API.Enums;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
+using HarmonyLib;
+using MEC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +20,7 @@ using Player = Exiled.Events.Handlers.Player;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.Painkillers)]
     public class Steroids : CustomItem
     { 
-        public override uint Id { get; set; } = 24;
+        public override uint Id { get; set; } = 22;
         public override string Name { get; set; } = "Steroids";
         public override string Description { get; set; } = "Makes you fast... but with a catch, your life will suffer.";
         public override float Weight { get; set; } = 1f;
@@ -55,11 +58,18 @@ using Player = Exiled.Events.Handlers.Player;
 
         Exiled.API.Features.Player p = ev.Player;
 
-        p.EnableEffect(EffectType.MovementBoost, 30);
+        p.EnableEffect(EffectType.MovementBoost);
         p.ChangeEffectIntensity(EffectType.MovementBoost, 100);
 
-        p.EnableEffect(EffectType.CardiacArrest, 30);
+        p.EnableEffect(EffectType.CardiacArrest);
         p.ChangeEffectIntensity(EffectType.CardiacArrest, 1);
+
+        Timing.CallDelayed(30, () =>
+        {
+            p.DisableEffect(EffectType.CardiacArrest);
+            p.DisableEffect(EffectType.MovementBoost);
+
+        });
     }
 }
 

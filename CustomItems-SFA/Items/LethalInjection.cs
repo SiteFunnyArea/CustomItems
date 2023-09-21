@@ -63,7 +63,7 @@ public class LethalInjection : CustomItem
     /// <inheritdoc/>
     protected override void SubscribeEvents()
     {
-        Player.UsedItem += OnUsingItem;
+        Player.UsingItem += OnUsingItem;
 
         base.SubscribeEvents();
     }
@@ -71,12 +71,12 @@ public class LethalInjection : CustomItem
     /// <inheritdoc/>
     protected override void UnsubscribeEvents()
     {
-        Player.UsedItem -= OnUsingItem;
+        Player.UsingItem -= OnUsingItem;
 
         base.UnsubscribeEvents();
     }
 
-    private void OnUsingItem(UsedItemEventArgs ev)
+    private void OnUsingItem(UsingItemEventArgs ev)
     {
         Log.Debug($"{ev.Player.Nickname} used a medical item: {ev.Item}");
         if (!Check(ev.Player.CurrentItem))

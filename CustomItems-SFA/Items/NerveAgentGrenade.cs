@@ -17,11 +17,11 @@ using Player = Exiled.Events.Handlers.Player;
 
 
 
-    [Exiled.API.Features.Attributes.CustomItem(ItemType.GrenadeHE)]
-    public class ImpactGrenade : CustomGrenade
+    [Exiled.API.Features.Attributes.CustomItem(ItemType.GrenadeFlash)]
+    public class NerveAgentGrenade : CustomGrenade
 {
-        public override uint Id { get; set; } = 18;
-        public override string Name { get; set; } = "Impact Grenade";
+        public override uint Id { get; set; } = 639;
+        public override string Name { get; set; } = "Nerve Agent Grenade";
         public override string Description { get; set; } = "Once this item is thrown, if it hits anything, it will immediately explode.";
         public override float Weight { get; set; } = 1.15f;
     public override SpawnProperties? SpawnProperties { get; set; } = new()
@@ -31,14 +31,14 @@ using Player = Exiled.Events.Handlers.Player;
         {
             new()
             {
-                Chance = 100f,
+                Chance = 0f,
                 Location = SpawnLocationType.InsideNukeArmory,
             },
         },
     };
 
-    public override bool ExplodeOnCollision { get; set; } = true;
-    public override float FuseTime { get; set; } = 1.5f;
+    public override bool ExplodeOnCollision { get; set; } = false;
+    public override float FuseTime { get; set; } = 4f;
 
     protected override void SubscribeEvents()
         {
@@ -53,9 +53,18 @@ using Player = Exiled.Events.Handlers.Player;
 
     protected override void OnExploding(ExplodingGrenadeEventArgs ev)
     {
-        ev.IsAllowed = true;
-        Room room = Room.FindParentRoom(ev.Projectile.GameObject);
+        ev.IsAllowed = false;
 
+        Room room = Room.FindParentRoom(ev.Projectile.GameObject);
+        
+        foreach(Exiled.API.Features.Player player in room.Players)
+        {
+            if(player.Role.Side != ev.Player.Role.Side && room.Type != RoomType.Surface && player is not null)
+            {
+                player.EnableEffect(EffectType.Poisoned,40);
+            }
+        }
+        base.OnExploding(ev);
     }
 }
 

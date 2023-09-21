@@ -26,7 +26,7 @@ using UnityEngine;
 using CollisionHandler = Exiled.API.Features.Components.CollisionHandler;
 
 /// <inheritdoc />
-[CustomItem(ItemType.GunLogicer)]
+[CustomItem(ItemType.GunShotgun)]
 public class GrenadeLauncher : CustomWeapon
 {
     private CustomGrenade? loadedCustomGrenade;
@@ -37,10 +37,10 @@ public class GrenadeLauncher : CustomWeapon
     public override uint Id { get; set; } = 1;
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "GL-119";
+    public override string Name { get; set; } = "Noagrenadelauncherpls";
 
     /// <inheritdoc/>
-    public override string Description { get; set; } = "This weapon will launch grenades in the direction you are firing, instead of bullets. Requires Frag Grenades in your inventory to reload.";
+    public override string Description { get; set; } = "Noa, you better not have this.";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 2.95f;
@@ -53,12 +53,12 @@ public class GrenadeLauncher : CustomWeapon
         {
             new()
             {
-                Chance = 50,
+                Chance = 0,
                 Location = SpawnLocationType.Inside049Armory,
             },
             new()
             {
-                Chance = 40,
+                Chance = 0,
                 Location = SpawnLocationType.InsideHczArmory,
             },
         },

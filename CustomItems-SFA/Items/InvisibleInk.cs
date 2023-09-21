@@ -17,7 +17,7 @@ using Player = Exiled.Events.Handlers.Player;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.SCP1853)]
     public class InvisibleInk : CustomItem
     {
-        public override uint Id { get; set; } = 23;
+        public override uint Id { get; set; } = 19;
         public override string Name { get; set; } = "Invisible Ink";
         public override string Description { get; set; } = "Makes everything invisible!<br>(FINE PRINT: Will cause your hands to fall off.)";
         public override float Weight { get; set; } = 1f;

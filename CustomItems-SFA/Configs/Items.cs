@@ -11,6 +11,8 @@ using CustomItems.Items;
 
 namespace CustomItems.Configs;
 
+using CustomItems_SFA.Items;
+using InventorySystem.Items.Usables;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -161,5 +163,102 @@ public class Items
     public List<AutoGun> AutoGuns { get; private set; } = new()
     {
         new AutoGun(),
+    };
+
+    [Description("The list of Impact Grenades.")]
+    public List<ImpactGrenade> ImpactGrenades { get; private set; } = new()
+    {
+        new ImpactGrenade(),
+    };
+
+    [Description("The list of Invisible Inks.")]
+    public List<InvisibleInk> InvisibleInks { get; private set; } = new()
+    {
+        new InvisibleInk(),
+    };
+
+    [Description("The list of Laxatives.")]
+    public List<Laxatives> Laxatives { get; private set; } = new()
+    {
+        new Laxatives(),
+    };
+
+    [Description("The list of SCP 500-R's.")]
+    public List<Scp500R> Scp500Rs { get; private set; } = new()
+    {
+        new Scp500R(),
+    };
+
+    [Description("The list of Steroids.")]
+    public List<Steroids> Steroids { get; private set; } = new()
+    {
+        new Steroids(),
+    };
+
+    [Description("The list of Undroppable Keycards.")]
+    public List<UndroppableKeycard> UndroppableKeycards { get; private set; } = new()
+    {
+        new UndroppableKeycard(),
+    };
+
+    [Description("The list of Enhanced Adrenalines.")]
+    public List<EnhancedAdrenaline> EnhancedAdrenalines { get; private set; } = new()
+    {
+        new EnhancedAdrenaline(),
+    };
+
+    [Description("The list of Delta-4 Transmitters.")]
+    public List<Delta4Transmitter> Delta4Transmitters { get; private set; } = new()
+    {
+        new Delta4Transmitter(),
+    };
+
+    [Description("The list of Crowd Control Napalms.")]
+    public List<CrowdControlNapalm> CrowdControlNapalms { get; private set; } = new()
+    {
+        new CrowdControlNapalm(),
+    };
+
+    [Description("The list of Nerve Agent Grenades.")]
+    public List<NerveAgentGrenade> NerveAgentGrenades { get; private set; } = new()
+    {
+        new NerveAgentGrenade(),
+    };
+
+    [Description("The list of SCP-500 HPs.")]
+    public List<Scp500HP> Scp500HPs { get; private set; } = new()
+    {
+        new Scp500HP(),
+    };
+
+    [Description("The list of SCP-500 TRs.")]
+    public List<Scp500TR> Scp500TRs { get; private set; } = new()
+    {
+        new Scp500TR(),
+    };
+
+    [Description("The list of SCP-500 IVs.")]
+    public List<Scp500IV> Scp500IVs { get; private set; } = new()
+    {
+        new Scp500IV(),
+    };
+
+    [Description("The list of SCP-500 SHs.")]
+    public List<Scp500SH> Scp500SHs { get; private set; } = new()
+    {
+        new Scp500SH(),
+    };
+
+
+    [Description("The list of Spiked Injections.")]
+    public List<SpikedInjection> SpikedInjections { get; private set; } = new()
+    {
+        new SpikedInjection(),
+    };
+
+    [Description("The list of RRCs.")]
+    public List<RapidResponseCall> RRCs { get; private set; } = new()
+    {
+        new RapidResponseCall(),
     };
 }

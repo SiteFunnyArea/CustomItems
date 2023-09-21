@@ -15,12 +15,12 @@ using Player = Exiled.Events.Handlers.Player;
 
 
 
-    [Exiled.API.Features.Attributes.CustomItem(ItemType.Painkillers)]
-    public class Laxatives : CustomItem
+    [Exiled.API.Features.Attributes.CustomItem(ItemType.Adrenaline)]
+    public class SpikedInjection : CustomItem
     {
-        public override uint Id { get; set; } = 20;
-        public override string Name { get; set; } = "Laxatives";
-        public override string Description { get; set; } = "Gives you a slight movement boost... but you have 10 seconds to find a toilet.";
+        public override uint Id { get; set; } = 267;
+        public override string Name { get; set; } = "Spiked Injection";
+        public override string Description { get; set; } = "You explode, you die. The End.";
         public override float Weight { get; set; } = 1f;
         public override SpawnProperties? SpawnProperties { get; set; } = new()
         {
@@ -37,32 +37,26 @@ using Player = Exiled.Events.Handlers.Player;
 
         protected override void SubscribeEvents()
         {
-            Player.UsingItem += OnUsingItem;
+            Player.UsedItem += OnUsedItem;
 
             base.SubscribeEvents();
         }
 
         protected override void UnsubscribeEvents()
         {
-            Player.UsingItem -= OnUsingItem;
+            Player.UsedItem -= OnUsedItem;
 
             base.UnsubscribeEvents();
         }
 
-        private void OnUsingItem(UsingItemEventArgs ev)
+        private void OnUsedItem(UsedItemEventArgs ev)
         {
-        if (!Check(ev.Player.CurrentItem))
+        
+        if (!Check(ev.Item))
             return;
 
-        ev.Player.EnableEffect(EffectType.MovementBoost, 10);
-        ev.Player.ChangeEffectIntensity(EffectType.MovementBoost, 75);
-
-        ev.Player.RemoveItem(ev.Player.CurrentItem);
-
-        Timing.CallDelayed(10f, () => { 
-            ev.Player.PlaceTantrum(true);
-            ev.Player.DisableEffect(EffectType.MovementBoost);
-        });
+        ev.Player.Explode();
+        ev.Player.Kill(DamageType.Explosion);
 
     }
 }
