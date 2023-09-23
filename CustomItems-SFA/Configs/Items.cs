@@ -261,4 +261,22 @@ public class Items
     {
         new RapidResponseCall(),
     };
+
+    [Description("The list of SCP 420-Js.")]
+    public List<Scp420J> Scp420Js { get; private set; } = new()
+    {
+        new Scp420J(),
+    };
+
+    [Description("The list of Scp127HPs.")]
+    public List<Scp127HP> Scp127HPs { get; private set; } = new()
+    {
+        new Scp127HP(),
+    };
+
+    [Description("The list of WeaponEnhancerInjections.")]
+    public List<WeaponEnhancerInjection> WeaponEnhancerInjections { get; private set; } = new()
+    {
+        new WeaponEnhancerInjection(),
+    };
 }
