@@ -19,7 +19,7 @@ using Player = Exiled.Events.Handlers.Player;
 [Exiled.API.Features.Attributes.CustomItem(ItemType.Adrenaline)]
 public class RainbowInjection : CustomItem
 {
-    public override uint Id { get; set; } = 523;
+    public override uint Id { get; set; } = 8;
     public override string Name { get; set; } = "Rainbow Injection";
     public override string Description { get; set; } = "Gives you all the candy effects";
     public override float Weight { get; set; } = 1f;

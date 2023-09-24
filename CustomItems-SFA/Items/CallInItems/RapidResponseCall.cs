@@ -28,7 +28,7 @@ using Player = Exiled.Events.Handlers.Player;
 public class RapidResponseCall : CustomItem
 {
 
-    public override uint Id { get; set; } = 469;
+    public override uint Id { get; set; } = 3;
     public override string Name { get; set; } = "Rapid Response Call";
     public override string Description { get; set; } = "This keycard can be used to call in <color=#FFEA00>1-3 spectators from the dead.</color><br>To use it, you <color=#FFEA00>hold out</color> the keycard <color=#FFEA00>then drop it through your inventory</color> to spawn the <color=#960018>Rapid Response Team</color>.\r\n";
     [Description("Message that will appear on reinforcements' screens once they spawn.")]

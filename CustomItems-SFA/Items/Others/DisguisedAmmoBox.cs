@@ -1,6 +1,7 @@
 ﻿namespace CustomItems_SFA.Items;
 
 using Exiled.API.Enums;
+using Exiled.API.Features;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
@@ -14,12 +15,12 @@ using Player = Exiled.Events.Handlers.Player;
 
 
 
-    [Exiled.API.Features.Attributes.CustomItem(ItemType.SCP500)]
-    public class Scp500HP : CustomItem
+    [Exiled.API.Features.Attributes.CustomItem(ItemType.Adrenaline)]
+    public class DisguisedAmmoBox : CustomItem
     {
-        public override uint Id { get; set; } = 39;
-        public override string Name { get; set; } = "SCP-500 HP";
-        public override string Description { get; set; } = "Increases your health from 100 to 150.";
+        public override uint Id { get; set; } = 29;
+        public override string Name { get; set; } = "Disguised Ammo Box";
+        public override string Description { get; set; } = "This is a template item.";
         public override float Weight { get; set; } = 1f;
         public override SpawnProperties? SpawnProperties { get; set; } = new()
         {
@@ -29,7 +30,7 @@ using Player = Exiled.Events.Handlers.Player;
             new()
             {
                 Chance = 0,
-                Location = SpawnLocationType.InsideLczArmory,
+                Location = SpawnLocationType.InsideGateB,
             },
         },
         };
@@ -48,13 +49,19 @@ using Player = Exiled.Events.Handlers.Player;
             base.UnsubscribeEvents();
         }
 
-        private void OnUsingItem(UsingItemEventArgs ev)
-        {
+    private void OnUsingItem(UsingItemEventArgs ev)
+    {
         if (!Check(ev.Player.CurrentItem))
             return;
 
-        Exiled.API.Features.Player p = ev.Player;
-        p.Health = 150;
+        ev.Player.RemoveItem(ev.Player.CurrentItem);
+        ev.Player.AddAmmo(AmmoType.Ammo44Cal, 4);
+        ev.Player.AddAmmo(AmmoType.Nato9, 30);
+        ev.Player.AddAmmo(AmmoType.Nato556, 20);
+        ev.Player.AddAmmo(AmmoType.Nato762, 20);
+        ev.Player.AddAmmo(AmmoType.Ammo12Gauge, 8);
+
+
     }
 }
 

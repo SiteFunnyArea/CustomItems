@@ -29,13 +29,13 @@ using Scp096Role = Exiled.API.Features.Roles.Scp096Role;
 public class LethalInjection : CustomItem
 {
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 3;
+    public override uint Id { get; set; } = 31;
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "LJ-119";
+    public override string Name { get; set; } = "Lethal Injection";
 
     /// <inheritdoc/>
-    public override string Description { get; set; } = "This is a Lethal Injection that, when used, will cause SCP-096 to immediately leave his enrage, regardless of how many targets he currently has, if you are one of his current targets. You always die when using this, even if there's no enrage to break, or you are not a target.";
+    public override string Description { get; set; } = "Fine Print: This is made with a bunch of bathroom drugs.";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 1f;
@@ -49,7 +49,7 @@ public class LethalInjection : CustomItem
             new()
             {
                 Chance = 100,
-                Location = SpawnLocationType.Inside096,
+                Location = SpawnLocationType.InsideLczWc,
             },
         },
     };

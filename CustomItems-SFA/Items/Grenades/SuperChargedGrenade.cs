@@ -21,7 +21,7 @@ using Player = Exiled.Events.Handlers.Player;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.GrenadeHE)]
     public class SuperChargedGrenade : CustomGrenade
 {
-        public override uint Id { get; set; } = 5420;
+        public override uint Id { get; set; } = 18;
         public override string Name { get; set; } = "Super Charged Grenade";
         public override string Description { get; set; } = "test";
         public override float Weight { get; set; } = 1.15f;
@@ -32,7 +32,7 @@ using Player = Exiled.Events.Handlers.Player;
         {
             new()
             {
-                Chance = 100f,
+                Chance = 0,
                 Location = SpawnLocationType.InsideNukeArmory,
             },
         },
@@ -56,8 +56,8 @@ using Player = Exiled.Events.Handlers.Player;
     {
         ev.IsAllowed = true;
         Room room = Room.FindParentRoom(ev.Projectile.GameObject);
-        ev.Projectile.Explode();
-        ev.Projectile.Explode();
+        
+
     }
 }
 

@@ -29,10 +29,10 @@ public class LuckyCoin : CustomItem
     private bool onCooldown;
 
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 4;
+    public override uint Id { get; set; } = 32;
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "LC-119";
+    public override string Name { get; set; } = "Molded Penny";
 
     /// <inheritdoc/>
     public override string Description { get; set; } = "This coin has magical properties when it is dropped inside of SCP-106's pocket dimension.";
@@ -50,11 +50,6 @@ public class LuckyCoin : CustomItem
             {
                 Chance = 100,
                 Location = SpawnLocationType.InsideLocker,
-            },
-            new()
-            {
-                Chance = 50,
-                Location = SpawnLocationType.Inside173Armory,
             },
         },
     };

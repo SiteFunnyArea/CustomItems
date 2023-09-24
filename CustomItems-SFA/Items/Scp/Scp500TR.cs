@@ -17,7 +17,7 @@ using Player = Exiled.Events.Handlers.Player;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.SCP500)]
     public class Scp500TR : CustomItem
     {
-        public override uint Id { get; set; } = 262;
+        public override uint Id { get; set; } = 43;
         public override string Name { get; set; } = "SCP-500 TR";
         public override string Description { get; set; } = "Switches you to the other team when taken.";
         public override float Weight { get; set; } = 1f;

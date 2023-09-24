@@ -18,7 +18,7 @@ using Player = Exiled.Events.Handlers.Player;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.Adrenaline)]
     public class SpikedInjection : CustomItem
     {
-        public override uint Id { get; set; } = 267;
+        public override uint Id { get; set; } = 33;
         public override string Name { get; set; } = "Spiked Injection";
         public override string Description { get; set; } = "You explode, you die. The End.";
         public override float Weight { get; set; } = 1f;

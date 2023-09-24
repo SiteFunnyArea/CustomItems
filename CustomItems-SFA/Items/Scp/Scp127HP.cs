@@ -23,7 +23,7 @@ using YamlDotNet.Serialization;
 public class Scp127HP : CustomWeapon
 {
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 623;
+    public override uint Id { get; set; } = 36;
 
     /// <inheritdoc/>
     public override string Name { get; set; } = "SCP 127-HP";

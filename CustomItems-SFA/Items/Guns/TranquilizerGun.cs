@@ -39,13 +39,13 @@ public class TranquilizerGun : CustomWeapon
     private readonly List<Player> activeTranqs = new();
 
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 11;
+    public override uint Id { get; set; } = 26;
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "TG-119";
+    public override string Name { get; set; } = "Standard Stun Gun";
 
     /// <inheritdoc/>
-    public override string Description { get; set; } = "This modifier USP fires non-lethal tranquilizing darts. Those affected will be rendered unconscious for a short duration. Unreliable against SCPs. Repeated tranquilizing of the same person will render them resistant to it's effect.";
+    public override string Description { get; set; } = "This stun gun fires <color=#FFEA00>non-lethal tranq rounds</color> at any target shot at. It has a chance to affect <color=#FFEA00>SCPs</color> as well.";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 1.55f;
@@ -58,13 +58,8 @@ public class TranquilizerGun : CustomWeapon
         {
             new()
             {
-                Chance = 50,
+                Chance = 100,
                 Location = SpawnLocationType.InsideGr18,
-            },
-            new()
-            {
-                Chance = 80,
-                Location = SpawnLocationType.Inside173Armory,
             },
         },
     };
@@ -73,7 +68,7 @@ public class TranquilizerGun : CustomWeapon
     public override byte ClipSize { get; set; } = 2;
 
     /// <inheritdoc/>
-    public override float Damage { get; set; }
+    public override float Damage { get; set; } = 5;
 
     /// <summary>
     /// Gets or sets a value indicating whether or not SCPs should be resistant to tranquilizers. (Being resistant gives them a chance to not be tranquilized when shot).

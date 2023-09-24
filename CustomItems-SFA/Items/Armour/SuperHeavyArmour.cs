@@ -20,7 +20,7 @@ namespace CustomItems_SFA.Items.Armour;
 [CustomItem(ItemType.ArmorHeavy)]
 public class SuperHeavyArmour : CustomArmor
 {
-    public override uint Id { get; set; } = 3914;
+    public override uint Id { get; set; } = 1;
     public override string Name { get; set; } = "Super Heavy Armour";
     public override string Description { get; set; } = "";
     public override float Weight { get; set; } = 2f;

@@ -30,13 +30,13 @@ public class MediGun : CustomWeapon
     private readonly Dictionary<Player, RoleTypeId> previousRoles = new();
 
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 5;
+    public override uint Id { get; set; } = 24;
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "MG-119";
+    public override string Name { get; set; } = "Specialized Medical Weapon";
 
     /// <inheritdoc/>
-    public override string Description { get; set; } = "A specialized weapon that fires darts filled with a special mixture of Painkillers, Antibiotics, Antiseptics and other medicines. When fires at friendly targets, they will be healed. When fired at instances of SCP-049-2, they will be slowly converted back to human form. Does nothing when fired at anyone else.";
+    public override string Description { get; set; } = "A modified FSP9 that heals teammates and zombies. If shot enough times, the zombie will return back to the original role.";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 1.95f;
@@ -56,24 +56,6 @@ public class MediGun : CustomWeapon
     public override SpawnProperties? SpawnProperties { get; set; } = new()
     {
         Limit = 1,
-        DynamicSpawnPoints = new List<DynamicSpawnPoint>
-        {
-            new()
-            {
-                Chance = 40,
-                Location = SpawnLocationType.InsideGr18,
-            },
-            new()
-            {
-                Chance = 50,
-                Location = SpawnLocationType.InsideGateA,
-            },
-            new()
-            {
-                Chance = 50,
-                Location = SpawnLocationType.InsideGateB,
-            },
-        },
     };
 
     /// <summary>

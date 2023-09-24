@@ -12,6 +12,7 @@ using CustomItems.Items;
 namespace CustomItems.Configs;
 
 using CustomItems_SFA.Items;
+using CustomItems_SFA.Items.Armour;
 using InventorySystem.Items.Usables;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -279,4 +280,47 @@ public class Items
     {
         new WeaponEnhancerInjection(),
     };
+
+    [Description("The list of FlameRoundE11SRs.")]
+    public List<FlameRoundE11SR> FlameRoundE11SRs { get; private set; } = new()
+    {
+        new FlameRoundE11SR(),
+    };
+
+    [Description("The list of FrostBurnRoundE11SRs.")]
+    public List<FrostBurnRoundE11SR> FrostBurnRoundE11SRs { get; private set; } = new()
+    {
+        new FrostBurnRoundE11SR(),
+    };
+
+    [Description("The list of DietCokes.")]
+    public List<DietCoke> DietCokes { get; private set; } = new()
+    {
+        new DietCoke(),
+    };
+
+    [Description("The list of SuperHeavyArmours.")]
+    public List<SuperHeavyArmour> SuperHeavyArmours { get; private set; } = new()
+    {
+        new SuperHeavyArmour(),
+    };
+
+    [Description("The list of MedicalEnhancerInjections.")]
+    public List<MedicalEnhancerInjection> MedicalEnhancerInjections { get; private set; } = new()
+    {
+        new MedicalEnhancerInjection(),
+    };
+
+    [Description("The list of SuperChargedGrenades.")]
+    public List<SuperChargedGrenade> SuperChargedGrenades { get; private set; } = new()
+    {
+        new SuperChargedGrenade(),
+    };
+
+    [Description("The list of DisguisedAmmoBoxs.")]
+    public List<DisguisedAmmoBox> DisguisedAmmoBoxs { get; private set; } = new()
+    {
+        new DisguisedAmmoBox(),
+    };
+
 }

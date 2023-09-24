@@ -24,14 +24,14 @@ using PlayerRoles;
 public class AntiMemeticPills : CustomItem
 {
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 13;
+    public override uint Id { get; set; } = 4;
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "AM-119";
+    public override string Name { get; set; } = "Gamma-5 AM Pills";
 
     /// <inheritdoc/>
     public override string Description { get; set; } =
-        "Drugs that make you forget things. If you use these while you are targeted by SCP-096, you will forget what his face looks like, and thus no longer be a target.";
+        "Drugs that make you forget things. If you use these while you are targeted by <color=#FFEA00>SCP-096</color>.<br>Which you will forget what he looks like.";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 1f;

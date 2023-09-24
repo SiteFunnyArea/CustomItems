@@ -34,13 +34,13 @@ public class GrenadeLauncher : CustomWeapon
     private ProjectileType loadedGrenade = ProjectileType.FragGrenade;
 
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 1;
+    public override uint Id { get; set; } = 23;
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "Noagrenadelauncherpls";
+    public override string Name { get; set; } = "Tactical Grenade Launcher";
 
     /// <inheritdoc/>
-    public override string Description { get; set; } = "Noa, you better not have this.";
+    public override string Description { get; set; } = "A modified shotgun that shoots grenades out of it. It can be used to deal high amounts of damage. But be careful...";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 2.95f;
@@ -53,13 +53,8 @@ public class GrenadeLauncher : CustomWeapon
         {
             new()
             {
-                Chance = 0,
+                Chance = 100,
                 Location = SpawnLocationType.Inside049Armory,
-            },
-            new()
-            {
-                Chance = 0,
-                Location = SpawnLocationType.InsideHczArmory,
             },
         },
     };

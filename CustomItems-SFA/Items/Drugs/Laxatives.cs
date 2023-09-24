@@ -18,7 +18,7 @@ using Player = Exiled.Events.Handlers.Player;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.Painkillers)]
     public class Laxatives : CustomItem
     {
-        public override uint Id { get; set; } = 20;
+        public override uint Id { get; set; } = 6;
         public override string Name { get; set; } = "Laxatives";
         public override string Description { get; set; } = "Gives you a slight movement boost... but you have 10 seconds to find a toilet.";
         public override float Weight { get; set; } = 1f;

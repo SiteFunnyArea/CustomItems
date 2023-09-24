@@ -45,10 +45,10 @@ public class EmpGrenade : CustomGrenade
     private readonly List<TeslaGate> disabledTeslaGates = new();
 
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 0;
+    public override uint Id { get; set; } = 14;
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "EM-119";
+    public override string Name { get; set; } = "Tactical EMP Grenade";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 1.15f;
@@ -65,19 +65,10 @@ public class EmpGrenade : CustomGrenade
                 Location = SpawnLocationType.Inside173Gate,
             },
         },
-        StaticSpawnPoints = new List<StaticSpawnPoint>
-        {
-            new()
-            {
-                Chance = 50,
-                Name = "somewhere",
-                Position = new Vector3(100, 25, 40),
-            },
-        },
     };
 
     /// <inheritdoc/>
-    public override string Description { get; set; } = "This flashbang has been modified to emit a short-range EMP when it detonates. When detonated, any lights, doors, cameras and in the room, as well as all speakers in the facility, will be disabled for a short time.";
+    public override string Description { get; set; } = "An EMP grenade that can dsiable any power connected things within the room. Speakers, cams, doors, and lights.";
 
     /// <inheritdoc/>
     public override bool ExplodeOnCollision { get; set; } = true;

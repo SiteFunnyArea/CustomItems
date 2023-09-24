@@ -27,7 +27,7 @@ using Player = Exiled.API.Features.Player;
 public class AutoGun : CustomWeapon
 {
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 17;
+    public override uint Id { get; set; } = 19;
 
     /// <inheritdoc/>
     public override string Name { get; set; } = "AutoGun";
@@ -49,7 +49,7 @@ public class AutoGun : CustomWeapon
         {
             new()
             {
-                Chance = 100,
+                Chance = 0,
                 Location = SpawnLocationType.Inside173Armory,
             },
         },

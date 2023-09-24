@@ -28,13 +28,13 @@ public class Scp1499 : CustomItem
     private readonly Dictionary<Player, Vector3> scp1499Players = new();
 
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 8;
+    public override uint Id { get; set; } = 37;
 
     /// <inheritdoc/>
     public override string Name { get; set; } = "SCP-1499";
 
     /// <inheritdoc/>
-    public override string Description { get; set; } = "The gas mask that temporarily teleports you to another dimension, when you put it on.";
+    public override string Description { get; set; } = "<color=#FFEA00>SCP-1499</color> is an SCP item that can teleport the user away from any bad situation.<br>It will bring them to an alternate world to perhaps get <color=#FFEA00>items</color> from within.";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 1.5f;
@@ -47,8 +47,9 @@ public class Scp1499 : CustomItem
         {
             new()
             {
-                Chance = 10,
-                Location = SpawnLocationType.InsideHid,
+                Chance = 100,
+                Position = new Vector3(0.694f,0.959f,-2.237f),
+                Location = SpawnLocationType.Inside330,
             },
         },
     };

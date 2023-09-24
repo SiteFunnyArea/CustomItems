@@ -45,13 +45,13 @@ public class Scp714 : CustomItem
     private Dictionary<Player, List<(EffectType, float)>> existingEffects = new();
 
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 12;
+    public override uint Id { get; set; } = 44;
 
     /// <inheritdoc/>
     public override string Name { get; set; } = "SCP-714";
 
     /// <inheritdoc/>
-    public override string Description { get; set; } = "The jade ring that protects you from hazards.";
+    public override string Description { get; set; } = "The jade ring that protects you from hazards. Such as <color=#FFEA00>SCP 049</color> and <color=#FFEA00>SCP 049-2</color>";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 1.15f;
@@ -64,7 +64,7 @@ public class Scp714 : CustomItem
         {
             new()
             {
-                Chance = 50,
+                Chance = 100,
                 Location = SpawnLocationType.Inside049Armory,
             },
         },

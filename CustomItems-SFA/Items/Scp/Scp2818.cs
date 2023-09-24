@@ -32,14 +32,14 @@ using YamlDotNet.Serialization;
 public class Scp2818 : CustomWeapon
 {
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 14;
+    public override uint Id { get; set; } = 38;
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "SCP-2818";
+    public override string Name { get; set; } = "SCP-2818 Reworked";
 
     /// <inheritdoc/>
     public override string Description { get; set; } =
-        "When this weapon is fired, it uses the biomass of the shooter as the bullet.";
+        "When this weapon is fired, it uses the <color=#FFEA00>biomass of the shooter</color> into the bullet.";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 3.95f;
@@ -77,11 +77,7 @@ public class Scp2818 : CustomWeapon
                 Chance = 60,
                 Location = SpawnLocationType.InsideHid,
             },
-            new()
-            {
-                Chance = 40,
-                Location = SpawnLocationType.InsideHczArmory,
-            },
+
         },
     };
 

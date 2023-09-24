@@ -20,22 +20,23 @@ using YamlDotNet.Serialization;
 
 /// <inheritdoc />
 [CustomItem(ItemType.GunE11SR)]
-public class SniperRifle : CustomWeapon
+public class FrostBurnRoundE11SR : CustomWeapon
 {
+    private int Multiply { get; set; } = 0;
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 25;
+    public override uint Id { get; set; } = 22;
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "Prototype Epsilon-11 SR";
+    public override string Name { get; set; } = "Frostburn Round E-11 SR";
 
     /// <inheritdoc/>
-    public override string Description { get; set; } = "This modified E11SR is a <color=#FFEA00>Sniper Rifle</color> that can probably one shot someone.";
+    public override string Description { get; set; } = "This is a template item.";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 3.25f;
 
     /// <inheritdoc/>
-    public override byte ClipSize { get; set; } = 1;
+    public override byte ClipSize { get; set; } = 31;
 
     /// <inheritdoc/>
     public override bool ShouldMessageOnGban { get; } = true;
@@ -48,13 +49,15 @@ public class SniperRifle : CustomWeapon
     public override SpawnProperties? SpawnProperties { get; set; } = new()
     {
         Limit = 1,
-        DynamicSpawnPoints = new List<DynamicSpawnPoint>
+        StaticSpawnPoints = new List<StaticSpawnPoint>
         {
             new()
             {
-                Chance = 100,
-                Location = SpawnLocationType.InsideHid,
+                Name = "Surface",
+                Chance = 0,
+                Position = new UnityEngine.Vector3(39.108f, 1001.982f, -52.789f),
             },
+
         },
     };
 
@@ -62,20 +65,31 @@ public class SniperRifle : CustomWeapon
     [YamlIgnore]
     public override AttachmentName[] Attachments { get; set; } = new[]
     {
-        AttachmentName.ExtendedBarrel,
-        AttachmentName.ScopeSight,
+        AttachmentName.HoloSight,
     };
 
     /// <summary>
     /// Gets or sets the amount of extra damage this weapon does, as a multiplier.
     /// </summary>
-    [Description("The amount of extra damage this weapon does, as a multiplier.")]
-    public float DamageMultiplier { get; set; } = 7.5f;
 
     /// <inheritdoc/>
     protected override void OnHurting(HurtingEventArgs ev)
     {
         if (ev.Attacker != ev.Player && ev.DamageHandler.Base is FirearmDamageHandler firearmDamageHandler && firearmDamageHandler.WeaponType == ev.Attacker.CurrentItem.Type)
-            ev.Amount *= DamageMultiplier;
+        {
+            if(Multiply <= 5)
+            {
+                Multiply += 1;
+                ev.Player.EnableEffect(EffectType.Hypothermia, 3 * Multiply);
+
+            }
+            else
+            {
+                Multiply = 5;
+                ev.Player.EnableEffect(EffectType.Hypothermia, 3 * Multiply);
+
+            }
+        }
+
     }
 }

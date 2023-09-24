@@ -18,7 +18,7 @@ using Player = Exiled.Events.Handlers.Player;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.Adrenaline)]
     public class WeaponEnhancerInjection : CustomItem
     {
-        public override uint Id { get; set; } = 4324;
+        public override uint Id { get; set; } = 11;
         public override string Name { get; set; } = "Weapon-enhancer Injection";
         public override string Description { get; set; } = "This is a template item.";
         public override float Weight { get; set; } = 1f;

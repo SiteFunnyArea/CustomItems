@@ -31,7 +31,7 @@ using FirearmPickup = InventorySystem.Items.Firearms.FirearmPickup;
 public class Scp127 : CustomWeapon
 {
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 7;
+    public override uint Id { get; set; } = 35;
 
     /// <inheritdoc/>
     public override string Name { get; set; } = "SCP-127";

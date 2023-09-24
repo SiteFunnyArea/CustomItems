@@ -18,7 +18,7 @@ using Player = Exiled.Events.Handlers.Player;
 [Exiled.API.Features.Attributes.CustomItem(ItemType.Adrenaline)]
 public class EnhancedAdrenaline : CustomItem
 {
-    public override uint Id { get; set; } = 24;
+    public override uint Id { get; set; } = 5;
     public override string Name { get; set; } = "Enhanced Adrenaline";
     public override string Description { get; set; } = "This is a template item.";
     public override float Weight { get; set; } = 1f;
@@ -29,7 +29,7 @@ public class EnhancedAdrenaline : CustomItem
         {
             new()
             {
-                Chance = 0,
+                Chance = 100,
                 Location = SpawnLocationType.InsideGateB,
             },
         },

@@ -23,7 +23,7 @@ using YamlDotNet.Serialization;
 public class CounterInsurgencySniperRifle : CustomWeapon
 {
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 171;
+    public override uint Id { get; set; } = 20;
 
     /// <inheritdoc/>
     public override string Name { get; set; } = "Counter-Insurgency Sniper Rifle";

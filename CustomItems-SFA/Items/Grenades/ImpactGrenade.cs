@@ -20,7 +20,7 @@ using Player = Exiled.Events.Handlers.Player;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.GrenadeHE)]
     public class ImpactGrenade : CustomGrenade
 {
-        public override uint Id { get; set; } = 8420;
+        public override uint Id { get; set; } = 15;
         public override string Name { get; set; } = "Impact Grenade";
         public override string Description { get; set; } = "Once this item is thrown, if it hits anything, it will immediately explode.";
         public override float Weight { get; set; } = 1.15f;

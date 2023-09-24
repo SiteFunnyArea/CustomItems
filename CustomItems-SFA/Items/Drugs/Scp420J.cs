@@ -18,7 +18,7 @@ using Player = Exiled.Events.Handlers.Player;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.SCP244b)]
     public class Scp420J : CustomItem
     {
-        public override uint Id { get; set; } = 420;
+        public override uint Id { get; set; } = 9;
         public override string Name { get; set; } = "SCP-420 J";
         public override string Description { get; set; } = "Das sum good sh//.";
         public override float Weight { get; set; } = 1f;
@@ -38,23 +38,23 @@ using Player = Exiled.Events.Handlers.Player;
 
         protected override void SubscribeEvents()
         {
-            Player.UsedItem += OnUsedItem;
+            Player.UsingItem += OnUsedItem;
 
             base.SubscribeEvents();
         }
 
         protected override void UnsubscribeEvents()
         {
-            Player.UsedItem -= OnUsedItem;
+            Player.UsingItem -= OnUsedItem;
 
             base.UnsubscribeEvents();
         }
 
-    private void OnUsedItem(UsedItemEventArgs ev)
+    private void OnUsedItem(UsingItemEventArgs ev)
     {
         if (!Check(ev.Item))
             return;
-        ev.Item.Destroy();
+        ev.Player.RemoveItem(ev.Player.CurrentItem);
 
         Exiled.API.Features.Player p = ev.Player;
         p.EnableEffect(EffectType.Deafened, 30);

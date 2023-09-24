@@ -17,7 +17,7 @@ using Player = Exiled.Events.Handlers.Player;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.SCP500)]
     public class Scp500IV : CustomItem
     {
-        public override uint Id { get; set; } = 263;
+        public override uint Id { get; set; } = 40;
         public override string Name { get; set; } = "SCP-500 IV";
         public override string Description { get; set; } = "Makes you invisible for a brief amount of time.";
         public override float Weight { get; set; } = 1f;

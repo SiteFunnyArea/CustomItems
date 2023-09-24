@@ -20,7 +20,7 @@ using Player = Exiled.Events.Handlers.Player;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.Painkillers)]
     public class Steroids : CustomItem
     { 
-        public override uint Id { get; set; } = 22;
+        public override uint Id { get; set; } = 10;
         public override string Name { get; set; } = "Steroids";
         public override string Description { get; set; } = "Makes you fast... but with a catch, your life will suffer.";
         public override float Weight { get; set; } = 1f;

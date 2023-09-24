@@ -33,7 +33,7 @@ public class ImplosionGrenade : CustomGrenade
     private List<Player> effectedPlayers = new();
 
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 2;
+    public override uint Id { get; set; } = 16;
 
     /// <inheritdoc/>
     public override string Name { get; set; } = "IG-119";
@@ -52,12 +52,12 @@ public class ImplosionGrenade : CustomGrenade
         {
             new()
             {
-                Chance = 50,
+                Chance = 0,
                 Location = SpawnLocationType.InsideLocker,
             },
             new()
             {
-                Chance = 100,
+                Chance = 0,
                 Location = SpawnLocationType.InsideHczArmory,
             },
         },

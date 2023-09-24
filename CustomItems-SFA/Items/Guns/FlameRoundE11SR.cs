@@ -24,7 +24,7 @@ public class FlameRoundE11SR : CustomWeapon
 {
     private int Multiply { get; set; } = 0;
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 1751;
+    public override uint Id { get; set; } = 21;
 
     /// <inheritdoc/>
     public override string Name { get; set; } = "Flame Round E-11 SR";

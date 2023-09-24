@@ -17,7 +17,7 @@ using Player = Exiled.Events.Handlers.Player;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.SCP500)]
     public class Scp500SH : CustomItem
     {
-        public override uint Id { get; set; } = 264;
+        public override uint Id { get; set; } = 42;
         public override string Name { get; set; } = "SCP-500 SH";
         public override string Description { get; set; } = "Gives you 50 AHP when taken.";
         public override float Weight { get; set; } = 1f;

@@ -28,7 +28,7 @@ using Player = Exiled.Events.Handlers.Player;
 public class Delta4Transmitter : CustomItem
 {
 
-    public override uint Id { get; set; } = 452;
+    public override uint Id { get; set; } = 2;
     public override string Name { get; set; } = "Delta-4 Keycard";
     public override string Description { get; set; } = "Once this item is dropped while in your hands, 1-2 reinforcements will be called.";
     [Description("Message that will appear on reinforcements' screens once they spawn.")]

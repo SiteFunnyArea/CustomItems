@@ -33,17 +33,17 @@ public class DeflectorShield : CustomItem
     private readonly ItemType type = ItemType.SCP268;
 
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 658;
+    public override uint Id { get; set; } = 27;
 
     /// <inheritdoc/>
     [YamlIgnore]
     public override ItemType Type { get => type; set => throw new ArgumentException("You cannot change the ItemType of this item."); }
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "Deflector shield";
+    public override string Name { get; set; } = "SCP 268-DR";
 
     /// <inheritdoc/>
-    public override string Description { get; set; } = "A deflector shield that reflects bullets back at the shooter";
+    public override string Description { get; set; } = "A deflector shield that <color=#FFEA00>reflects bullets at the shooter</color>. But the duration is not long...";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 1.65f;
@@ -56,7 +56,7 @@ public class DeflectorShield : CustomItem
         {
             new()
             {
-                Chance = 10,
+                Chance = 100,
                 Location = SpawnLocationType.InsideHid,
             },
         },

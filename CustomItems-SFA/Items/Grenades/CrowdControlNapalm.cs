@@ -20,7 +20,7 @@ using Player = Exiled.Events.Handlers.Player;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.GrenadeFlash)]
     public class CrowdControlNapalm : CustomGrenade
 {
-        public override uint Id { get; set; } = 638;
+        public override uint Id { get; set; } = 13;
         public override string Name { get; set; } = "Crowd Control Napalm";
         public override string Description { get; set; } = "Once this item is thrown, if it hits anything, it will immediately explode.";
         public override float Weight { get; set; } = 1.15f;

@@ -67,10 +67,10 @@ public class C4Charge : CustomGrenade
     public static Dictionary<Pickup, Player> PlacedCharges { get; } = new();
 
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 15;
+    public override uint Id { get; set; } = 12;
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "C4-119";
+    public override string Name { get; set; } = "Tactical C4 HE";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 0.75f;
@@ -83,25 +83,19 @@ public class C4Charge : CustomGrenade
         {
             new()
             {
-                Chance = 10,
-                Location = SpawnLocationType.InsideLczArmory,
-            },
-
-            new()
-            {
-                Chance = 25,
+                Chance = 100,
                 Location = SpawnLocationType.InsideHczArmory,
             },
 
             new()
             {
-                Chance = 50,
+                Chance = 100,
                 Location = SpawnLocationType.InsideNukeArmory,
             },
 
             new()
             {
-                Chance = 50,
+                Chance = 100,
                 Location = SpawnLocationType.Inside049Armory,
             },
 
@@ -114,7 +108,7 @@ public class C4Charge : CustomGrenade
     };
 
     /// <inheritdoc/>
-    public override string Description { get; set; } = "Explosive charge that can be remotly detonated.";
+    public override string Description { get; set; } = "Explosive charge that can be remotly detonated.<br>To use it, put <color=#FFEA00>.detonate</color> in the player console to trigger it while holding a radio.";
 
     /// <summary>
     /// Gets or sets a value indicating whether C4 charge should stick to walls / ceiling.

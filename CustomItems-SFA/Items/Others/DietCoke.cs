@@ -17,7 +17,7 @@ using Player = Exiled.Events.Handlers.Player;
     [Exiled.API.Features.Attributes.CustomItem(ItemType.Adrenaline)]
     public class DietCoke : CustomItem
     {
-        public override uint Id { get; set; } = 754;
+        public override uint Id { get; set; } = 28;
         public override string Name { get; set; } = "Diet Coke";
         public override string Description { get; set; } = "This is a template item.";
         public override float Weight { get; set; } = 1f;
