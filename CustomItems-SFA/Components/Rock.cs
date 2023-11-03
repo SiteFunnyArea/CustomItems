@@ -59,7 +59,7 @@ public class Rock : Scp018Projectile
     /// The collision handler.
     /// </summary>
     /// <param name="collision">The <see cref="Collision"/> occuring.</param>
-    protected override void ProcessCollision(Collision collision)
+    public override void ProcessCollision(Collision collision)
     {
         try
         {

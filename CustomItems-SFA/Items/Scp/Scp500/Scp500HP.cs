@@ -15,12 +15,12 @@ using Player = Exiled.Events.Handlers.Player;
 
 
 
-    [Exiled.API.Features.Attributes.CustomItem(ItemType.Painkillers)]
-    public class Laxatives : CustomItem
+    [Exiled.API.Features.Attributes.CustomItem(ItemType.SCP500)]
+    public class Scp500HP : CustomItem
     {
-        public override uint Id { get; set; } = 20;
-        public override string Name { get; set; } = "Laxatives";
-        public override string Description { get; set; } = "Gives you a slight movement boost... but you have 10 seconds to find a toilet.";
+        public override uint Id { get; set; } = 39;
+        public override string Name { get; set; } = "SCP-500 HP";
+        public override string Description { get; set; } = "Increases your health from 100 to 150.";
         public override float Weight { get; set; } = 1f;
         public override SpawnProperties? SpawnProperties { get; set; } = new()
         {
@@ -30,7 +30,7 @@ using Player = Exiled.Events.Handlers.Player;
             new()
             {
                 Chance = 0,
-                Location = SpawnLocationType.InsideGateB,
+                Location = SpawnLocationType.InsideLczArmory,
             },
         },
         };
@@ -53,16 +53,17 @@ using Player = Exiled.Events.Handlers.Player;
         {
         if (!Check(ev.Player.CurrentItem))
             return;
+        
+        Timing.CallDelayed(1.3f, () =>
+        {
+            Exiled.API.Features.Player p = ev.Player;
+            ev.Player.MaxHealth += 50;
+            ev.Player.Health = ev.Player.MaxHealth;
+            ev.IsAllowed = false;
+            ev.Player.RemoveItem(ev.Player.CurrentItem);
 
-        ev.Player.EnableEffect(EffectType.MovementBoost, 10);
-        ev.Player.ChangeEffectIntensity(EffectType.MovementBoost, 75);
-
-        ev.Player.RemoveItem(ev.Player.CurrentItem);
-
-        Timing.CallDelayed(10f, () => { 
-            ev.Player.PlaceTantrum(true);
-            ev.Player.DisableEffect(EffectType.MovementBoost);
         });
+
 
     }
 }

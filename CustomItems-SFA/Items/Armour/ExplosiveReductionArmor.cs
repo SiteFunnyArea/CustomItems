@@ -6,6 +6,7 @@ using Exiled.API.Features.Spawn;
 using Exiled.CustomItems;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
+using Exiled.Events.Handlers;
 using InventorySystem;
 using MEC;
 using System;
@@ -18,10 +19,10 @@ using CI = CustomItems.CustomItems;
 namespace CustomItems_SFA.Items.Armour;
 
 [CustomItem(ItemType.ArmorHeavy)]
-public class SuperHeavyArmour : CustomArmor
+public class ExplosiveReductionArmor : CustomArmor
 {
-    public override uint Id { get; set; } = 1;
-    public override string Name { get; set; } = "Super Heavy Armour";
+    public override uint Id { get; set; } = 205;
+    public override string Name { get; set; } = "Explosive Reduction Armor";
     public override string Description { get; set; } = "";
     public override float Weight { get; set; } = 2f;
     public override SpawnProperties? SpawnProperties { get; set; }
@@ -42,11 +43,13 @@ public class SuperHeavyArmour : CustomArmor
     }
     protected override void OnPickingUp(PickingUpItemEventArgs ev)
     {
-        ev.Player.AddAhp(50, 75, 0);
-        ev.Player.UniqueRole = ev.Player.UniqueRole + "-SHA";
-        base.OnPickingUp(ev);
+        ev.Player.UniqueRole = ev.Player.UniqueRole + "-hasItemArmor";
     }
-
+    public override void Give(Exiled.API.Features.Player player, bool displayMessage = true)
+    {
+        player.UniqueRole = player.UniqueRole + "-hasItemArmor";
+        base.Give(player, displayMessage);
+    }
     protected override void OnDropping(DroppingItemEventArgs ev)
     {
         ev.Player.ArtificialHealth = 0;
@@ -68,11 +71,9 @@ public class SuperHeavyArmour : CustomArmor
 
     public void OnHurt(HurtingEventArgs ev)
     {
-        if (ev.Player.UniqueRole.Contains("-SHA"))
+        if(ev.DamageHandler.Type == Exiled.API.Enums.DamageType.Explosion && ev.Player.UniqueRole.Contains("-hasItemArmor"))
         {
-            Timing.CallDelayed(10f, () => {
-                ev.Player.ArtificialHealth = 50;
-            });
+            ev.DamageHandler.Damage = 45;
         }
     }
 

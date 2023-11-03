@@ -35,31 +35,36 @@ using Player = Exiled.Events.Handlers.Player;
         },
         };
 
+    
         protected override void SubscribeEvents()
         {
-            Player.UsingItem += OnUsingItem;
+            Player.UsedItem += OnUsedItem;
 
             base.SubscribeEvents();
         }
 
         protected override void UnsubscribeEvents()
         {
-            Player.UsingItem -= OnUsingItem;
+            Player.UsedItem -= OnUsedItem;
 
             base.UnsubscribeEvents();
         }
 
-    private void OnUsingItem(UsingItemEventArgs ev)
+    private void OnUsedItem(UsedItemEventArgs ev)
     {
-        if (!Check(ev.Player.CurrentItem))
+        if (!Check(ev.Item))
             return;
 
         Effect e = new Effect();
+
         e.Type = EffectType.Scp1853;
         e.Intensity = 5;
-        e.Duration = 30;
+        e.Duration = 0;
+        e.IsEnabled = true;
+
         ev.Player.EnableEffect(e);
 
+        //ev.Player.RemoveHeldItem(true);
     }
 }
 

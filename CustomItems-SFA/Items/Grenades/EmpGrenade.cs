@@ -168,6 +168,10 @@ public class EmpGrenade : CustomGrenade
 
             Log.Debug("Opening a door!");
 
+            if(door.KeycardPermissions == Exiled.API.Enums.KeycardPermissions.ContainmentLevelThree)
+            {
+                return;
+            }
             door.IsOpen = true;
             door.ChangeLock(DoorLockType.NoPower);
 

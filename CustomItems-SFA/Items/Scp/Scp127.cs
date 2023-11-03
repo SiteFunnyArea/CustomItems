@@ -27,7 +27,7 @@ using Firearm = Exiled.API.Features.Items.Firearm;
 using FirearmPickup = InventorySystem.Items.Firearms.FirearmPickup;
 
 /// <inheritdoc />
-[CustomItem(ItemType.GunCOM18)]
+[CustomItem(ItemType.GunCrossvec)]
 public class Scp127 : CustomWeapon
 {
     /// <inheritdoc/>
@@ -78,7 +78,7 @@ public class Scp127 : CustomWeapon
     /// Gets or sets the amount of ammo that will be regenerated each regeneration cycle.
     /// </summary>
     [Description("The amount of ammo that will be regenerated each regeneration cycle.")]
-    public byte RegenerationAmount { get; set; } = 2;
+    public byte RegenerationAmount { get; set; } = 4;
 
     private List<CoroutineHandle> Coroutines { get; } = new();
 
@@ -102,7 +102,7 @@ public class Scp127 : CustomWeapon
     protected override void OnHurting(HurtingEventArgs ev)
     {
         if (DamageMultiplier > 0)
-            ev.Amount *= Damage;
+            ev.Amount *= DamageMultiplier;
     }
 
     /// <inheritdoc/>

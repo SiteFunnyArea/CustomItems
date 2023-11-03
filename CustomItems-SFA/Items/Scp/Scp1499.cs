@@ -43,13 +43,15 @@ public class Scp1499 : CustomItem
     public override SpawnProperties? SpawnProperties { get; set; } = new()
     {
         Limit = 1,
-        DynamicSpawnPoints = new List<DynamicSpawnPoint>
+      
+        StaticSpawnPoints = new List<StaticSpawnPoint>
         {
             new()
             {
+                
                 Chance = 100,
                 Position = new Vector3(0.694f,0.959f,-2.237f),
-                Location = SpawnLocationType.Inside330,
+                Name = $"{RoomType.Lcz330}",
             },
         },
     };

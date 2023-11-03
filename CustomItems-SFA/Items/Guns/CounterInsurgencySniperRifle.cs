@@ -79,6 +79,6 @@ public class CounterInsurgencySniperRifle : CustomWeapon
     {
         if (ev.Attacker != ev.Player && ev.DamageHandler.Base is FirearmDamageHandler firearmDamageHandler && firearmDamageHandler.WeaponType == ev.Attacker.CurrentItem.Type)
             ev.Amount *= DamageMultiplier;
-            ev.Player.EnableEffect(EffectType.Flashed, 4);
+            ev.Player.EnableEffect(EffectType.Flashed, 4f);
     }
 }

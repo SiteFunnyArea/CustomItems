@@ -10,7 +10,10 @@ namespace CustomItems.Items;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Exiled.API.Enums;
+using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
+using Exiled.API.Features.Items;
+using Exiled.API.Features.Pickups;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
@@ -44,6 +47,23 @@ public class SniperRifle : CustomWeapon
     [YamlIgnore]
     public override float Damage { get; set; }
 
+    public override Pickup? Spawn(float x, float y, float z, Item item)
+    {
+        x = Room.Get(RoomType.LczArmory).Position.x + 2.5f;
+        y = Room.Get(RoomType.LczArmory).Position.y + 4.8f;
+        z = Room.Get(RoomType.LczArmory).Position.z - 3.7f;
+        PluginAPI.Core.Log.Debug(Room.Get(RoomType.LczArmory).Position.ToString());
+        return base.Spawn(x, y, z, item);
+    }
+
+    public override Pickup? Spawn(float x, float y, float z)
+    {
+        x = Room.Get(RoomType.LczArmory).Position.x + 2.5f;
+        y = Room.Get(RoomType.LczArmory).Position.y + 4.8f;
+        z = Room.Get(RoomType.LczArmory).Position.z - 3.7f;
+        PluginAPI.Core.Log.Debug(Room.Get(RoomType.LczArmory).Position.ToString());
+        return base.Spawn(x, y, z);
+    }
     /// <inheritdoc/>
     public override SpawnProperties? SpawnProperties { get; set; } = new()
     {

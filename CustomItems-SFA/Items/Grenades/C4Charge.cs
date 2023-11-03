@@ -179,6 +179,7 @@ public class C4Charge : CustomGrenade
     /// <param name="removeMethod"> The method of removing the charge.</param>
     public void C4Handler(Pickup? charge, C4RemoveMethod removeMethod = C4RemoveMethod.Detonate)
     {
+        
         if (charge?.Position is null)
             return;
         switch (removeMethod)

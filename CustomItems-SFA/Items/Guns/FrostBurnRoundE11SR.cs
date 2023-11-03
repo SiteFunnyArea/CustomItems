@@ -19,10 +19,10 @@ using PlayerStatsSystem;
 using YamlDotNet.Serialization;
 
 /// <inheritdoc />
-[CustomItem(ItemType.GunE11SR)]
+[CustomItem(ItemType.GunCrossvec)]
 public class FrostBurnRoundE11SR : CustomWeapon
 {
-    private int Multiply { get; set; } = 0;
+    
     /// <inheritdoc/>
     public override uint Id { get; set; } = 22;
 
@@ -73,6 +73,8 @@ public class FrostBurnRoundE11SR : CustomWeapon
     /// </summary>
 
     /// <inheritdoc/>
+    [YamlIgnore]
+    private int Multiply = 0;
     protected override void OnHurting(HurtingEventArgs ev)
     {
         if (ev.Attacker != ev.Player && ev.DamageHandler.Base is FirearmDamageHandler firearmDamageHandler && firearmDamageHandler.WeaponType == ev.Attacker.CurrentItem.Type)

@@ -125,14 +125,14 @@ public class MediGun : CustomWeapon
             }
             else if (ev.Player.Role == RoleTypeId.Scp0492 && HealZombies)
             {
-                if (!ev.Player.ActiveArtificialHealthProcesses.Any())
-                    ev.Player.AddAhp(0, ZombieHealingRequired, persistant: true);
-                ev.Player.ArtificialHealth += ev.Amount;
+                //if (!ev.Player.ActiveArtificialHealthProcesses.Any())
+                //    ev.Player.AddAhp(0, ZombieHealingRequired, persistant: true);
+                //ev.Player.ArtificialHealth += ev.Amount;
 
-                if (ev.Player.ArtificialHealth >= ev.Player.MaxArtificialHealth)
-                    DoReviveZombie(ev.Player, ev.Player);
+                //if (ev.Player.ArtificialHealth >= ev.Player.MaxArtificialHealth)
+                    //DoReviveZombie(ev.Player, ev.Player);
 
-                ev.IsAllowed = false;
+                ev.IsAllowed = true;
             }
         }
     }
@@ -142,10 +142,14 @@ public class MediGun : CustomWeapon
         if (!ev.Player.IsHuman || (ev.Attacker != null && ev.Attacker.Role != RoleTypeId.Scp049))
             return;
 
-        if (!previousRoles.ContainsKey(ev.Player))
-            previousRoles.Add(ev.Player, RoleTypeId.None);
+        //if (!previousRoles.ContainsKey(ev.Player))
+            //previousRoles.Add(ev.Player, RoleTypeId.None);
 
-        previousRoles[ev.Player] = ev.Player.Role;
+        if(ev.Player.Role.Type == RoleTypeId.Scp0492)
+        {
+            DoReviveZombie(ev.Player, ev.Attacker);
+        }
+        //previousRoles[ev.Player] = ev.Player.Role;
     }
 
     private void DoReviveZombie(Player target, Player healer)
@@ -153,11 +157,20 @@ public class MediGun : CustomWeapon
         Log.Debug($"Reviving {target.Nickname}");
         if (HealZombiesTeamCheck)
         {
-            target.Role.Set(healer.Role.Side == Side.Mtf ? RoleTypeId.NtfPrivate : RoleTypeId.ChaosConscript, RoleSpawnFlags.None);
+            if (healer.Role.Team == Team.Scientists || healer.Role.Team == Team.FoundationForces)
+            {
+                target.Role.Set(RoleTypeId.FacilityGuard, RoleSpawnFlags.None);
+
+            }
+            else if (healer.Role.Team == Team.ClassD || healer.Role.Team == Team.ChaosInsurgency)
+            {
+                target.Role.Set(RoleTypeId.ChaosConscript, RoleSpawnFlags.None);
+
+            } 
             return;
         }
 
-        if (previousRoles.ContainsKey(target))
-            target.Role.Set(previousRoles[target]);
+        //if (previousRoles.ContainsKey(target))
+            //target.Role.Set(previousRoles[target]);
     }
 }

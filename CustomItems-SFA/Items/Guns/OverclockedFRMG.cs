@@ -9,6 +9,7 @@ namespace CustomItems.Items;
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using CustomPlayerEffects;
 using Exiled.API.Enums;
 using Exiled.API.Features.Attributes;
 using Exiled.API.Features.Spawn;
@@ -19,23 +20,23 @@ using PlayerStatsSystem;
 using YamlDotNet.Serialization;
 
 /// <inheritdoc />
-[CustomItem(ItemType.GunE11SR)]
-public class SniperRifle : CustomWeapon
+[CustomItem(ItemType.GunFRMG0)]
+public class OverclockedFRMG : CustomWeapon
 {
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 10;
+    public override uint Id { get; set; } = 200;
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "SR-119";
+    public override string Name { get; set; } = "Overclocked FRMG";
 
     /// <inheritdoc/>
-    public override string Description { get; set; } = "This modified E-11 Rifle fires high-velocity anti-personnel sniper rounds.";
+    public override string Description { get; set; } = "An FRMG that is completely unstable. It has <color=FFEA00>extra ammo in the mag</color> and gives the user <color=FFEA00>SCP-1853 while holding it</color>.<br><color=FFEA00>This gun has been forged by the Serpents Hand Leader.</color>";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 3.25f;
 
     /// <inheritdoc/>
-    public override byte ClipSize { get; set; } = 1;
+    public override byte ClipSize { get; set; } = 150;
 
     /// <inheritdoc/>
     public override bool ShouldMessageOnGban { get; } = true;
@@ -48,18 +49,15 @@ public class SniperRifle : CustomWeapon
     public override SpawnProperties? SpawnProperties { get; set; } = new()
     {
         Limit = 1,
-        DynamicSpawnPoints = new List<DynamicSpawnPoint>
+        StaticSpawnPoints = new List<StaticSpawnPoint>
         {
             new()
             {
-                Chance = 100,
-                Location = SpawnLocationType.InsideHid,
+                Name = "Surface",
+                Chance = 0,
+                Position = new UnityEngine.Vector3(39.108f, 1001.982f, -52.789f),
             },
-            new()
-            {
-                Chance = 40,
-                Location = SpawnLocationType.InsideHczArmory,
-            },
+
         },
     };
 
@@ -67,20 +65,24 @@ public class SniperRifle : CustomWeapon
     [YamlIgnore]
     public override AttachmentName[] Attachments { get; set; } = new[]
     {
-        AttachmentName.ExtendedBarrel,
-        AttachmentName.ScopeSight,
+        AttachmentName.HoloSight,
+        AttachmentName.Foregrip,
+        AttachmentName.MuzzleBrake,
+        AttachmentName.HeavyStock,
+        AttachmentName.DrumMagFMJ,
+
     };
 
-    /// <summary>
-    /// Gets or sets the amount of extra damage this weapon does, as a multiplier.
-    /// </summary>
-    [Description("The amount of extra damage this weapon does, as a multiplier.")]
-    public float DamageMultiplier { get; set; } = 7.5f;
-
-    /// <inheritdoc/>
-    protected override void OnHurting(HurtingEventArgs ev)
+    protected override void OnChanging(ChangingItemEventArgs ev)
     {
-        if (ev.Attacker != ev.Player && ev.DamageHandler.Base is FirearmDamageHandler firearmDamageHandler && firearmDamageHandler.WeaponType == ev.Attacker.CurrentItem.Type)
-            ev.Amount *= DamageMultiplier;
+        if (ev.Player.ActiveEffects.Contains(ev.Player.GetEffect(EffectType.Scp1853)) && !Check(ev.Item))
+        {
+            //ev.Player.DisableEffect(EffectType.Scp1853);
+        }
+
+        if (Check(ev.Item))
+        {
+            //ev.Player.EnableEffect(EffectType.Scp1853);
+        }
     }
 }

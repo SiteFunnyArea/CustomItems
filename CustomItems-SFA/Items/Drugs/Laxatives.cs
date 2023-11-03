@@ -1,6 +1,9 @@
 ﻿namespace CustomItems_SFA.Items;
 
 using Exiled.API.Enums;
+using Exiled.API.Features;
+using Exiled.API.Features.Items;
+using Exiled.API.Features.Pickups;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
@@ -49,7 +52,7 @@ using Player = Exiled.Events.Handlers.Player;
             base.UnsubscribeEvents();
         }
 
-        private void OnUsingItem(UsingItemEventArgs ev)
+    private void OnUsingItem(UsingItemEventArgs ev)
         {
         if (!Check(ev.Player.CurrentItem))
             return;

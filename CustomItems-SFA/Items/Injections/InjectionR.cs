@@ -4,6 +4,7 @@ using Exiled.API.Enums;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
+using Exiled.Events.Features;
 using MEC;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,10 @@ using Player = Exiled.Events.Handlers.Player;
 
 
     [Exiled.API.Features.Attributes.CustomItem(ItemType.Adrenaline)]
-    public class DietCoke : CustomItem
+    public class InjectionR : CustomItem
     {
-        public override uint Id { get; set; } = 28;
-        public override string Name { get; set; } = "Diet Coke";
+        public override uint Id { get; set; } = 2005;
+        public override string Name { get; set; } = "Injection-R";
         public override string Description { get; set; } = "This is a template item.";
         public override float Weight { get; set; } = 1f;
         public override SpawnProperties? SpawnProperties { get; set; } = new()
@@ -34,21 +35,30 @@ using Player = Exiled.Events.Handlers.Player;
             },
         },
         };
+    public void Hurt(HurtingEventArgs ev)
+    {
+        if(ev.Attacker != null)
+        {
+            if (ev.Attacker.UniqueRole.Contains("-hasR"))
+            {
+                ev.DamageHandler.Damage *= 1.5f;
+            }
+        }
+    }
 
-        protected override void SubscribeEvents()
+    protected override void SubscribeEvents()
         {
             Player.UsingItem += OnUsingItem;
-            Player.Dying += OnDying;
-            Player.Hurting += OnHurting;
+            Player.Hurting += Hurt;
             base.SubscribeEvents();
         }
 
         protected override void UnsubscribeEvents()
         {
             Player.UsingItem -= OnUsingItem;
-            Player.Dying -= OnDying;
-            Player.Hurting -= OnHurting;
-            base.UnsubscribeEvents();
+            Player.Hurting -= Hurt;
+
+        base.UnsubscribeEvents();
         }
 
         private void OnUsingItem(UsingItemEventArgs ev)
@@ -58,35 +68,17 @@ using Player = Exiled.Events.Handlers.Player;
 
         Timing.CallDelayed(1.95f, () =>
         {
-            ev.Player.UniqueRole = ev.Player.UniqueRole + "-207Prevent";
-
-            ev.Player.RemoveItem(ev.Player.CurrentItem);
-        });
-
-        //Timing.CallDelayed(60f, () =>
-        //{
-        //    ev.Player.UniqueRole = "";
-        //});
-        }
-
-        public void OnDying(DyingEventArgs ev)
-    {
-        if (ev.Player.UniqueRole.Contains("-207Prevent"))
-        {
-            ev.Player.UniqueRole = "";
-        }
-    }
-
-    public void OnHurting(HurtingEventArgs ev)
-    {
-        if(ev.DamageHandler.Type == DamageType.Scp207 && ev.Player.UniqueRole.Contains("-207Prevent"))
-        {
             ev.IsAllowed = false;
+            ev.Player.RemoveItem(ev.Player.CurrentItem);
+            Exiled.API.Features.Broadcast bc = new Exiled.API.Features.Broadcast("<color=#9e050a><i>You feel rage consume your soul...</i></color>", 5);
+            ev.Player.Broadcast(bc);
+            ev.Player.UniqueRole = ev.Player.UniqueRole + "-hasR";
+
+            Timing.CallDelayed(13f, () =>
+            {
+                ev.Player.UniqueRole = "";
+            });
+        });
         }
-        else
-        {
-            ev.IsAllowed = true;
-        }
-    }
     }
 

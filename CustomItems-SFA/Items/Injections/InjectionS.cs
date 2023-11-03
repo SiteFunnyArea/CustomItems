@@ -1,6 +1,7 @@
 ﻿namespace CustomItems_SFA.Items;
 
 using Exiled.API.Enums;
+using Exiled.API.Features;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
@@ -16,11 +17,11 @@ using Player = Exiled.Events.Handlers.Player;
 
 
     [Exiled.API.Features.Attributes.CustomItem(ItemType.Adrenaline)]
-    public class SpikedInjection : CustomItem
+    public class InjectionS : CustomItem
     {
-        public override uint Id { get; set; } = 267;
-        public override string Name { get; set; } = "Spiked Injection";
-        public override string Description { get; set; } = "You explode, you die. The End.";
+        public override uint Id { get; set; } = 2002;
+        public override string Name { get; set; } = "Injection-S";
+        public override string Description { get; set; } = "This is a template item.";
         public override float Weight { get; set; } = 1f;
         public override SpawnProperties? SpawnProperties { get; set; } = new()
         {
@@ -37,27 +38,34 @@ using Player = Exiled.Events.Handlers.Player;
 
         protected override void SubscribeEvents()
         {
-            Player.UsedItem += OnUsedItem;
+            Player.UsingItem += OnUsingItem;
 
             base.SubscribeEvents();
         }
 
         protected override void UnsubscribeEvents()
         {
-            Player.UsedItem -= OnUsedItem;
+            Player.UsingItem -= OnUsingItem;
 
             base.UnsubscribeEvents();
         }
 
-        private void OnUsedItem(UsedItemEventArgs ev)
+        private void OnUsingItem(UsingItemEventArgs ev)
         {
-        
-        if (!Check(ev.Item))
+        if (!Check(ev.Player.CurrentItem))
             return;
 
-        ev.Player.Explode();
-        ev.Player.Kill(DamageType.Explosion);
-
+        Timing.CallDelayed(1.95f, () =>
+        {
+            ev.IsAllowed = false;
+            ev.Player.RemoveItem(ev.Player.CurrentItem);
+            Broadcast bc = new Broadcast("<color=#75d4ed><i>You feel faster, a lot faster...</i></color>", 5);
+            ev.Player.Broadcast(bc);
+            Effect e = new Effect(EffectType.MovementBoost, 15, 110);
+            Effect e2 = new Effect(EffectType.Invigorated, 15, 1);
+            ev.Player.EnableEffect(e);
+            ev.Player.EnableEffect(e2);
+        });
+        }
     }
-}
 

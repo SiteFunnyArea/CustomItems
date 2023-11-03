@@ -36,7 +36,7 @@ using Player = Exiled.API.Features.Player;
 
 /// <inheritdoc />
 [CustomItem(ItemType.GrenadeFlash)]
-public class EmpGrenade : CustomGrenade
+public class OverclockedEmpGrenade : CustomGrenade
 {
     private static readonly List<Room> LockedRooms079 = new();
 
@@ -45,10 +45,10 @@ public class EmpGrenade : CustomGrenade
     private readonly List<TeslaGate> disabledTeslaGates = new();
 
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 0;
+    public override uint Id { get; set; } = 202;
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "EM-119";
+    public override string Name { get; set; } = "Overclocked EMP Grenade";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 1.15f;
@@ -61,23 +61,14 @@ public class EmpGrenade : CustomGrenade
         {
             new()
             {
-                Chance = 100,
+                Chance = 0,
                 Location = SpawnLocationType.Inside173Gate,
-            },
-        },
-        StaticSpawnPoints = new List<StaticSpawnPoint>
-        {
-            new()
-            {
-                Chance = 50,
-                Name = "somewhere",
-                Position = new Vector3(100, 25, 40),
             },
         },
     };
 
     /// <inheritdoc/>
-    public override string Description { get; set; } = "This flashbang has been modified to emit a short-range EMP when it detonates. When detonated, any lights, doors, cameras and in the room, as well as all speakers in the facility, will be disabled for a short time.";
+    public override string Description { get; set; } = "An EMP grenade that can disable any power connected things within the zone. Speakers, cams, doors, and lights.";
 
     /// <inheritdoc/>
     public override bool ExplodeOnCollision { get; set; } = true;
@@ -146,108 +137,142 @@ public class EmpGrenade : CustomGrenade
         Room room = Room.FindParentRoom(ev.Projectile.GameObject);
         TeslaGate? gate = null;
 
-        Log.Debug($"{ev.Projectile.GameObject.transform.position} - {room.Position} - {Room.List.Count()}");
-
-        LockedRooms079.Add(room);
-
-        room.TurnOffLights(Duration);
-
-        if (DisableTeslaGates)
+        string RoomC = "";
+        if (room.Zone == ZoneType.LightContainment) 
         {
-            foreach (TeslaGate teslaGate in TeslaGate.List)
-            {
-                if (Room.FindParentRoom(teslaGate.GameObject) == room)
-                {
-                    disabledTeslaGates.Add(teslaGate);
-                    gate = teslaGate;
-                    break;
-                }
-            }
+            RoomC = "Light Containment Zone";
+        }
+        else if (room.Zone == ZoneType.HeavyContainment)
+        {
+            RoomC = "Heavy Containment Zone";
+        }
+        else if (room.Zone == ZoneType.Entrance)
+        {
+            RoomC = "Entrance Zone";
+        }
+        else if(room.Zone == ZoneType.Surface)
+        {
+            RoomC = "Surface Zone";
+        }else if(room.Zone == ZoneType.Unspecified)
+        {
+            RoomC = "an unknown area of the facility";
+        }else if(room.Zone == ZoneType.Other)
+        {
+            RoomC = "an area of the facility";
         }
 
-        Log.Debug($"{room.Doors.Count()} - {room.Type}");
-
-        foreach (Door door in room.Doors)
+        Exiled.API.Features.Cassie.MessageTranslated($"pitch_0.6 .g3 .g6 .g1 .g2 .g6 . pitch_1.0 Attention . an E M P black out has been detected at {RoomC} . backup generator protocol engaged", $"An EMP blackout has been detected at {RoomC}, backup generator protocol engaged.", false, false, true);
+        foreach(Room r in Room.Get(room.Zone))
         {
-            if (door == null ||
-                BlacklistedDoorTypes.Contains(door.Type) ||
-                (door.DoorLockType > 0 && !OpenLockedDoors) ||
-                (door.RequiredPermissions.RequiredPermissions != KeycardPermissions.None && !OpenKeycardDoors) || door.Type.IsElevator())
-                continue;
+            Log.Debug($"{ev.Projectile.GameObject.transform.position} - {room.Position} - {Room.List.Count()}");
 
-            Log.Debug("Opening a door!");
+            LockedRooms079.Add(r);
 
-            door.IsOpen = true;
-            door.ChangeLock(DoorLockType.NoPower);
+            r.TurnOffLights(Duration);
 
-            if (!lockedDoors.Contains(door))
-                lockedDoors.Add(door);
+            if (DisableTeslaGates)
+            {
+                foreach (TeslaGate teslaGate in TeslaGate.List)
+                {
+                    if (Room.FindParentRoom(teslaGate.GameObject) == r)
+                    {
+                        disabledTeslaGates.Add(teslaGate);
+                        gate = teslaGate;
+                        break;
+                    }
+                }
+            }
+
+            Log.Debug($"{r.Doors.Count()} - {r.Type}");
+
+            foreach (Door door in r.Doors)
+            {
+                if (door == null ||
+                    BlacklistedDoorTypes.Contains(door.Type) ||
+                    (door.DoorLockType > 0 && !OpenLockedDoors) ||
+                    (door.RequiredPermissions.RequiredPermissions != KeycardPermissions.None && !OpenKeycardDoors) || door.Type.IsElevator())
+                    continue;
+
+                Log.Debug("Opening a door!");
+
+                if (door.KeycardPermissions == Exiled.API.Enums.KeycardPermissions.ContainmentLevelThree)
+                {
+                    return;
+                }
+
+                door.IsOpen = true;
+                door.ChangeLock(DoorLockType.NoPower);
+
+                if (!lockedDoors.Contains(door))
+                    lockedDoors.Add(door);
+
+                Timing.CallDelayed(Duration, () =>
+                {
+                    door.Unlock();
+                    lockedDoors.Remove(door);
+                });
+            }
+
+            foreach (Player player in Player.List)
+            {
+                if (player.Role.Is(out Scp079Role scp079))
+                {
+                    if (scp079.Camera != null && scp079.Camera.Room == room)
+                        scp079.Camera = Camera.Get(CameraType.Hcz079ContChamber);
+                }
+
+                if (player.CurrentRoom != room)
+                    continue;
+
+                foreach (Item item in player.Items)
+                {
+                    switch (item)
+                    {
+                        case Radio radio:
+                            radio.IsEnabled = false;
+                            break;
+                        case Flashlight flashlight:
+                            flashlight.Active = false;
+                            break;
+                        case Firearm firearm:
+                            {
+                                foreach (Attachment attachment in firearm.Attachments)
+                                {
+                                    if (attachment.Name == AttachmentName.Flashlight)
+                                        attachment.IsEnabled = false;
+                                }
+
+                                break;
+                            }
+                    }
+                }
+            }
 
             Timing.CallDelayed(Duration, () =>
             {
-                door.Unlock();
-                lockedDoors.Remove(door);
-            });
-        }
-
-        foreach (Player player in Player.List)
-        {
-            if (player.Role.Is(out Scp079Role scp079))
-            {
-                if (scp079.Camera != null && scp079.Camera.Room == room)
-                    scp079.Camera = Camera.Get(CameraType.Hcz079ContChamber);
-            }
-
-            if (player.CurrentRoom != room)
-                continue;
-
-            foreach (Item item in player.Items)
-            {
-                switch (item)
-                {
-                    case Radio radio:
-                        radio.IsEnabled = false;
-                        break;
-                    case Flashlight flashlight:
-                        flashlight.Active = false;
-                        break;
-                    case Firearm firearm:
-                        {
-                            foreach (Attachment attachment in firearm.Attachments)
-                            {
-                                if (attachment.Name == AttachmentName.Flashlight)
-                                    attachment.IsEnabled = false;
-                            }
-
-                            break;
-                        }
-                }
-            }
-        }
-
-        Timing.CallDelayed(Duration, () =>
-        {
-            try
-            {
-                LockedRooms079.Remove(room);
-            }
-            catch (Exception e)
-            {
-                Log.Debug($"REMOVING LOCKED ROOM: {e}");
-            }
-
-            if (gate != null)
-            {
                 try
                 {
-                    disabledTeslaGates.Remove(gate);
+                    LockedRooms079.Remove(r);
                 }
                 catch (Exception e)
                 {
-                    Log.Debug($"REMOVING DISABLED TESLA: {e}");
+                    Log.Debug($"REMOVING LOCKED ROOM: {e}");
                 }
-            }
-        });
+
+                if (gate != null)
+                {
+                    try
+                    {
+                        disabledTeslaGates.Remove(gate);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Debug($"REMOVING DISABLED TESLA: {e}");
+                    }
+                }
+            });
+        }
+
     }
 
     private static void OnChangingCamera(ChangingCameraEventArgs ev)

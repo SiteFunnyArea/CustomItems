@@ -1,9 +1,12 @@
 ﻿namespace CustomItems_SFA.Items;
 
 using Exiled.API.Enums;
+using Exiled.API.Extensions;
+using Exiled.API.Features;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
+using MEC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +17,12 @@ using Player = Exiled.Events.Handlers.Player;
 
 
 
-    [Exiled.API.Features.Attributes.CustomItem(ItemType.SCP500)]
-    public class Scp500R : CustomItem
+    [Exiled.API.Features.Attributes.CustomItem(ItemType.Adrenaline)]
+    public class InjectionDR : CustomItem
     {
-        public override uint Id { get; set; } = 21;
-        public override string Name { get; set; } = "SCP 500-R";
-        public override string Description { get; set; } = "Gives you 20 seconds of damage reduction, making you lose less health than usual if you were to be injured.";
+        public override uint Id { get; set; } = 2004;
+        public override string Name { get; set; } = "Injection-DR";
+        public override string Description { get; set; } = "This is a template item.";
         public override float Weight { get; set; } = 1f;
         public override SpawnProperties? SpawnProperties { get; set; } = new()
         {
@@ -28,8 +31,8 @@ using Player = Exiled.Events.Handlers.Player;
         {
             new()
             {
-                Chance = 100,
-                Location = SpawnLocationType.InsideLczArmory,
+                Chance = 0,
+                Location = SpawnLocationType.InsideGateB,
             },
         },
         };
@@ -53,13 +56,17 @@ using Player = Exiled.Events.Handlers.Player;
         if (!Check(ev.Player.CurrentItem))
             return;
 
-        Exiled.API.Features.Player p = ev.Player;
+        Timing.CallDelayed(1.95f, () =>
+        {
+            ev.IsAllowed = false;
 
-        p.EnableEffect(EffectType.DamageReduction, 20);
-        p.ChangeEffectIntensity(EffectType.DamageReduction, 150);
+            ev.Player.RemoveItem(ev.Player.CurrentItem);
+            Broadcast bc = new Broadcast("<color=#7d8b57><i>Your bones and muscles become more durable..</i></color>", 5);
+            ev.Player.Broadcast(bc);
+            Effect e = new Effect(EffectType.DamageReduction, 15, 35);
 
-        p.EnableEffect(EffectType.BodyshotReduction, 20);
-        p.ChangeEffectIntensity(EffectType.BodyshotReduction, 150);
+            ev.Player.EnableEffect(e);
+        });
+        }
     }
-}
 

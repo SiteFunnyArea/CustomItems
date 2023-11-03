@@ -76,5 +76,6 @@ public class Scp127HP : CustomWeapon
     {
         if (ev.Attacker != ev.Player && ev.DamageHandler.Base is FirearmDamageHandler firearmDamageHandler && firearmDamageHandler.WeaponType == ev.Attacker.CurrentItem.Type)
             ev.Attacker.Heal(10);
+        
     }
 }

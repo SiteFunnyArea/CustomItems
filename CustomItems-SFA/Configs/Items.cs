@@ -323,4 +323,96 @@ public class Items
         new DisguisedAmmoBox(),
     };
 
+    public List<KeycardSerpentsDevice> KeycardSerpentsDevices { get; private set; } = new()
+    {
+        new KeycardSerpentsDevice(),
+    };
+
+    public List<OverclockedFRMG> OverclockedFRMGs { get; private set; } = new()
+    {
+        new OverclockedFRMG(),
+    };
+
+    public List<OverclockedEmpGrenade> OverclockedEmpGrenades { get; private set; } = new()
+    {
+        new OverclockedEmpGrenade(),
+    };
+    public List<Scp268TP> Scp268TPs { get; private set; } = new()
+    {
+        new Scp268TP(),
+    };
+    public List<ExplosiveReductionArmor> ExplosiveReductionArmors { get; private set; } = new()
+    {
+        new ExplosiveReductionArmor(),
+    };
+    public List<ModifiedSerpentsRifle> ModifiedSerpentsRifles { get; private set; } = new()
+    {
+        new ModifiedSerpentsRifle(),
+    };
+
+    public List<CounterInsurgencySniperRifle> CounterInsurgencySniperRifles { get; private set; } = new()
+    {
+        new CounterInsurgencySniperRifle(),
+    };
+
+    public List<StandardStunBaton> StandardStunBatons { get; private set; } = new()
+    {
+        new StandardStunBaton(),
+    };
+
+    public List<InjectionDR> InjectionDRs { get; private set; } = new()
+    {
+        new InjectionDR(),
+    };
+
+    public List<InjectionHP> InjectionHPs { get; private set; } = new()
+    {
+        new InjectionHP(),
+    };
+
+    public List<InjectionIV> InjectionIVs { get; private set; } = new()
+    {
+        new InjectionIV(),
+    };
+
+    public List<InjectionS> InjectionSs { get; private set; } = new()
+    {
+        new InjectionS(),
+    };
+
+    public List<InjectionTP> InjectionTPs { get; private set; } = new()
+    {
+        new InjectionTP(),
+    };
+
+    public List<InjectionR> InjectionRs { get; private set; } = new()
+    {
+        new InjectionR(),
+    };
+
+    public List<Scp500TM> Scp500TMs { get; private set; } = new()
+    {
+        new Scp500TM(),
+    };
+    public List<Scp500S> Scp500Ss { get; private set; } = new()
+    {
+        new Scp500S(),
+    };
+    public List<Scp500TP> Scp500TPs { get; private set; } = new()
+    {
+        new Scp500TP(),
+    };
+    public List<OverclockedGrenadeLauncher> OverclockedGrenadeLaunchers { get; private set; } = new()
+    {
+        new OverclockedGrenadeLauncher(),
+    };
+    public List<HolyShitGrenade> HolyShitGrenades { get; private set; } = new()
+    {
+        new HolyShitGrenade(),
+    };
+
+    public List<SpyDevice> SpyDevices { get; private set; } = new()
+    {
+        new SpyDevice(),
+    };
 }

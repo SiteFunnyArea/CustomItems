@@ -5,6 +5,7 @@ using Exiled.API.Features;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
+using MEC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,24 +16,17 @@ using Player = Exiled.Events.Handlers.Player;
 
 
 
-    [Exiled.API.Features.Attributes.CustomItem(ItemType.Medkit)]
-    public class DisguisedAmmoBox : CustomItem
+    [Exiled.API.Features.Attributes.CustomItem(ItemType.SCP500)]
+    public class Scp500SH : CustomItem
     {
-        public override uint Id { get; set; } = 29;
-        public override string Name { get; set; } = "Disguised Ammo Box";
-        public override string Description { get; set; } = "This is a template item.";
+        public override uint Id { get; set; } = 42;
+        public override string Name { get; set; } = "SCP-500 SH";
+        public override string Description { get; set; } = "Gives you 50 AHP when taken.";
         public override float Weight { get; set; } = 1f;
         public override SpawnProperties? SpawnProperties { get; set; } = new()
         {
+
             Limit = 1,
-            DynamicSpawnPoints = new List<DynamicSpawnPoint>
-        {
-            new()
-            {
-                Chance = 0,
-                Location = SpawnLocationType.InsideGateB,
-            },
-        },
         };
 
         protected override void SubscribeEvents()
@@ -49,19 +43,22 @@ using Player = Exiled.Events.Handlers.Player;
             base.UnsubscribeEvents();
         }
 
-    private void OnUsingItem(UsingItemEventArgs ev)
-    {
+        private void OnUsingItem(UsingItemEventArgs ev)
+        {
         if (!Check(ev.Player.CurrentItem))
             return;
 
-        ev.Player.RemoveItem(ev.Player.CurrentItem);
-        ev.Player.AddAmmo(AmmoType.Ammo44Cal, 4);
-        ev.Player.AddAmmo(AmmoType.Nato9, 30);
-        ev.Player.AddAmmo(AmmoType.Nato556, 20);
-        ev.Player.AddAmmo(AmmoType.Nato762, 20);
-        ev.Player.AddAmmo(AmmoType.Ammo12Gauge, 8);
+        Timing.CallDelayed(1.3f, () =>
+        {
+            Exiled.API.Features.Player p = ev.Player;
+            p.AddAhp(75, 75, 0);
+            Effect DR = new(EffectType.DamageReduction, 0, 15);
+            p.EnableEffect(DR);
 
+            ev.IsAllowed = false;
+            ev.Player.RemoveItem(ev.Player.CurrentItem);
 
+        });
     }
 }
 

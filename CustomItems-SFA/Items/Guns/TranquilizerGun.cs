@@ -32,11 +32,13 @@ using Ragdoll = Exiled.API.Features.Ragdoll;
 using Random = UnityEngine.Random;
 
 /// <inheritdoc />
-[CustomItem(ItemType.GunCOM18)]
+[CustomItem(ItemType.GunRevolver)]
 public class TranquilizerGun : CustomWeapon
 {
     private readonly Dictionary<Player, float> tranquilizedPlayers = new();
     private readonly List<Player> activeTranqs = new();
+    private readonly List<Player> playersWhoRecievedAmmo = new();
+    private readonly List<Player> CooldownPlayers = new();
 
     /// <inheritdoc/>
     public override uint Id { get; set; } = 26;
@@ -65,11 +67,11 @@ public class TranquilizerGun : CustomWeapon
     };
 
     /// <inheritdoc/>
-    public override byte ClipSize { get; set; } = 2;
-
+    public override byte ClipSize { get; set; } = 1;
     /// <inheritdoc/>
     public override float Damage { get; set; } = 5;
-
+    public float Cooldown { get; set; } = 7;
+    public float CooldownElapsed { get; set; } = 0;
     /// <summary>
     /// Gets or sets a value indicating whether or not SCPs should be resistant to tranquilizers. (Being resistant gives them a chance to not be tranquilized when shot).
     /// </summary>
@@ -120,6 +122,9 @@ public class TranquilizerGun : CustomWeapon
         Exiled.Events.Handlers.Player.VoiceChatting -= OnDeniableEvent;
         activeTranqs.Clear();
         tranquilizedPlayers.Clear();
+        playersWhoRecievedAmmo.Clear();
+        CooldownPlayers.Clear();
+
         Timing.KillCoroutines($"{nameof(TranquilizerGun)}-{Id}-reducer");
         base.UnsubscribeEvents();
     }
@@ -137,8 +142,38 @@ public class TranquilizerGun : CustomWeapon
         Exiled.Events.Handlers.Scp096.AddingTarget += OnDeniableEvent;
         Exiled.Events.Handlers.Scp939.PlacingAmnesticCloud += OnDeniableEvent;
         Exiled.Events.Handlers.Player.VoiceChatting += OnDeniableEvent;
-        Exiled.Events.Handlers.Player.PickingUpItem += OnDeniableEvent;
         base.SubscribeEvents();
+    }
+    protected override void OnPickingUp(PickingUpItemEventArgs ev)
+    {
+        if (!Check(ev.Pickup))
+            return;
+        if (playersWhoRecievedAmmo.Contains(ev.Player))
+            return;
+
+        ev.Player.AddAmmo(AmmoType.Ammo44Cal, 6);
+        playersWhoRecievedAmmo.Add(ev.Player);
+
+        base.OnPickingUp(ev);
+    }
+
+    protected override void OnShooting(ShootingEventArgs ev)
+    {
+        if (!Check(ev.Player)) return;
+
+        if (CooldownPlayers.Contains(ev.Player))
+        {
+            if (!ev.Player.HasHint)
+            {
+                Hint h = new Hint($"<i>You must wait {Cooldown - CooldownElapsed} seconds to shoot.</i>\r\n", 7);
+                ev.Player.ShowHint(h);
+            }
+            ev.IsAllowed = false;
+            return;
+        }
+
+
+        base.OnShooting(ev);
     }
 
     /// <inheritdoc/>
@@ -163,7 +198,16 @@ public class TranquilizerGun : CustomWeapon
         float duration = Duration;
 
         if (!tranquilizedPlayers.TryGetValue(ev.Player, out _))
+        {
+            CooldownPlayers.Add(ev.Attacker);
+            Timing.CallDelayed(Cooldown, () =>
+            {
+                CooldownPlayers.Remove(ev.Attacker);
+            });
             tranquilizedPlayers.Add(ev.Player, 1);
+        }
+            
+
 
         tranquilizedPlayers[ev.Player] *= ResistanceModifier;
         Log.Debug($"{Name}: Resistance Duration Mod: {tranquilizedPlayers[ev.Player]}");
@@ -184,6 +228,7 @@ public class TranquilizerGun : CustomWeapon
         float newHealth = player.Health - Damage;
         List<StatusEffectBase> activeEffects = ListPool<StatusEffectBase>.Pool.Get();
         player.CurrentItem = null;
+        CooldownElapsed++;
 
         if (newHealth <= 0)
             yield break;
@@ -194,18 +239,18 @@ public class TranquilizerGun : CustomWeapon
         {
             if (DropItems)
             {
-                if (player.Items.Count < 0)
+                if (player.Items.Count > 0)
                 {
-                    foreach (Item item in player.Items.ToList())
-                    {
-                        if (TryGet(item, out CustomItem? customItem))
-                        {
-                            customItem?.Spawn(player.Position, item, player);
-                            player.RemoveItem(item);
-                        }
-                    }
-
-                    player.DropItems();
+                    //foreach (Item item in player.Items.ToList())
+                    //{
+                    //     if (TryGet(item, out CustomItem? customItem))
+                    //     {
+                    //          customItem?.Spawn(player.Position, item, player);
+                    //          player.RemoveItem(item);
+                    //      }
+                    //   }
+                    //
+                    player.DropHeldItem();
                 }
             }
         }
@@ -252,6 +297,8 @@ public class TranquilizerGun : CustomWeapon
             player.IsGodModeEnabled = false;
             player.Scale = previousScale;
             player.Health = newHealth;
+
+            CooldownElapsed = 0;
 
             if (!DropItems)
                 player.CurrentItem = previousItem;

@@ -26,7 +26,7 @@ public class CustomItems : Plugin<Config>
     public static CustomItems Instance { get; private set; } = null!;
 
     public override string Name { get; } = "CustomItems";
-    public override string Author { get; } = "Joker119 and the Exiled Team | Modified by KadotCom and SiteFunnyArea";
+    public override string Author { get; } = "Joker119 and the Exiled Team";
     public override string Prefix { get; } = "sfa_custom_items";
     public override Version Version { get; } = new(1,0,0,0);
     /// <inheritdoc/>

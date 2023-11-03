@@ -27,20 +27,20 @@ using CollisionHandler = Exiled.API.Features.Components.CollisionHandler;
 
 /// <inheritdoc />
 [CustomItem(ItemType.GunShotgun)]
-public class GrenadeLauncher : CustomWeapon
+public class OverclockedGrenadeLauncher : CustomWeapon
 {
     private CustomGrenade? loadedCustomGrenade;
 
     private ProjectileType loadedGrenade = ProjectileType.FragGrenade;
 
     /// <inheritdoc/>
-    public override uint Id { get; set; } = 1;
+    public override uint Id { get; set; } = 23;
+
+    /// <inheritdoc/>b
+    public override string Name { get; set; } = "Tactical Grenade Launcher";
 
     /// <inheritdoc/>
-    public override string Name { get; set; } = "Noagrenadelauncherpls";
-
-    /// <inheritdoc/>
-    public override string Description { get; set; } = "Noa, you better not have this.";
+    public override string Description { get; set; } = "A modified shotgun that shoots grenades out of it. It can be used to deal high amounts of damage. But be careful...";
 
     /// <inheritdoc/>
     public override float Weight { get; set; } = 2.95f;
@@ -53,13 +53,8 @@ public class GrenadeLauncher : CustomWeapon
         {
             new()
             {
-                Chance = 0,
+                Chance = 100,
                 Location = SpawnLocationType.Inside049Armory,
-            },
-            new()
-            {
-                Chance = 0,
-                Location = SpawnLocationType.InsideHczArmory,
             },
         },
     };
@@ -68,7 +63,7 @@ public class GrenadeLauncher : CustomWeapon
     public override float Damage { get; set; }
 
     /// <inheritdoc/>
-    public override byte ClipSize { get; set; } = 1;
+    public override byte ClipSize { get; set; } = 3;
 
     /// <summary>
     /// Gets or sets a value indicating whether or not players will need actual frag grenades in their inventory to use as ammo. If false, the weapon's base ammo type is used instead.

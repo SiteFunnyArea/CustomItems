@@ -2,7 +2,10 @@
 
 using Exiled.API.Enums;
 using Exiled.API.Features;
+using Exiled.API.Features.Components;
+using Exiled.API.Features.Items;
 using Exiled.API.Features.Pickups;
+using Exiled.API.Features.Pickups.Projectiles;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Map;
@@ -54,9 +57,17 @@ using Player = Exiled.Events.Handlers.Player;
 
     protected override void OnExploding(ExplodingGrenadeEventArgs ev)
     {
+        //Room room = Room.FindParentRoom(ev.Projectile.GameObject);
+
+        ExplosiveGrenade g = (ExplosiveGrenade)Item.Create(ItemType.GrenadeHE);
+        g.FuseTime = 1;
+        g.SpawnActive(ev.Projectile.Position, ev.Player);
+
+        ExplosiveGrenade g2 = (ExplosiveGrenade)Item.Create(ItemType.GrenadeHE);
+        g2.FuseTime = 1;
+        g2.SpawnActive(ev.Projectile.Position, ev.Player);
+
         ev.IsAllowed = true;
-        Room room = Room.FindParentRoom(ev.Projectile.GameObject);
-        
 
     }
 }

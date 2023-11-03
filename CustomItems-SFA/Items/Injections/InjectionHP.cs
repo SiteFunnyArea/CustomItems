@@ -4,6 +4,7 @@ using Exiled.API.Enums;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
+using MEC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,17 +15,24 @@ using Player = Exiled.Events.Handlers.Player;
 
 
 
-    [Exiled.API.Features.Attributes.CustomItem(ItemType.SCP500)]
-    public class Scp500SH : CustomItem
+    [Exiled.API.Features.Attributes.CustomItem(ItemType.Adrenaline)]
+    public class InjectionHP : CustomItem
     {
-        public override uint Id { get; set; } = 264;
-        public override string Name { get; set; } = "SCP-500 SH";
-        public override string Description { get; set; } = "Gives you 50 AHP when taken.";
+        public override uint Id { get; set; } = 2001;
+        public override string Name { get; set; } = "Injection-HP";
+        public override string Description { get; set; } = "This is a template item.";
         public override float Weight { get; set; } = 1f;
         public override SpawnProperties? SpawnProperties { get; set; } = new()
         {
-
             Limit = 1,
+            DynamicSpawnPoints = new List<DynamicSpawnPoint>
+        {
+            new()
+            {
+                Chance = 0,
+                Location = SpawnLocationType.InsideGateB,
+            },
+        },
         };
 
         protected override void SubscribeEvents()
@@ -46,8 +54,18 @@ using Player = Exiled.Events.Handlers.Player;
         if (!Check(ev.Player.CurrentItem))
             return;
 
-        Exiled.API.Features.Player p = ev.Player;
-        p.AddAhp(50, 75, 0);
+        Timing.CallDelayed(1.95f, () =>
+        {
+            ev.IsAllowed = false;
+
+            ev.Player.RemoveItem(ev.Player.CurrentItem);
+            Exiled.API.Features.Broadcast bc = new Exiled.API.Features.Broadcast("<color=#43f393><i>You feel slightly stronger...</i></color>", 5);
+            ev.Player.Broadcast(bc);
+
+
+            ev.Player.MaxHealth += 20;
+            ev.Player.Health = ev.Player.MaxHealth;
+        });
+        }
     }
-}
 

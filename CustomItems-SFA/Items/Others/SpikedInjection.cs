@@ -1,6 +1,8 @@
 ﻿namespace CustomItems_SFA.Items;
 
 using Exiled.API.Enums;
+using Exiled.API.Features.Items;
+using Exiled.API.Features.Pickups;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
@@ -56,6 +58,9 @@ using Player = Exiled.Events.Handlers.Player;
             return;
 
         ev.Player.Explode();
+        ExplosiveGrenade gr = (ExplosiveGrenade)Item.Create(ItemType.GrenadeHE);
+        gr.FuseTime = 0;
+        gr.SpawnActive(ev.Player.Position, ev.Player);
         ev.Player.Kill(DamageType.Explosion);
 
     }

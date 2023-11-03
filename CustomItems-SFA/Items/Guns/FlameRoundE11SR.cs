@@ -19,10 +19,11 @@ using PlayerStatsSystem;
 using YamlDotNet.Serialization;
 
 /// <inheritdoc />
-[CustomItem(ItemType.GunE11SR)]
+[CustomItem(ItemType.GunCrossvec)]
 public class FlameRoundE11SR : CustomWeapon
 {
-    private int Multiply { get; set; } = 0;
+    [YamlIgnore]
+    private int Multiply = 0;
     /// <inheritdoc/>
     public override uint Id { get; set; } = 21;
 

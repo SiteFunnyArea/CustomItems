@@ -4,6 +4,7 @@ using Exiled.API.Enums;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
+using MEC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,22 +16,23 @@ using Player = Exiled.Events.Handlers.Player;
 
 
     [Exiled.API.Features.Attributes.CustomItem(ItemType.SCP500)]
-    public class Scp500HP : CustomItem
+    public class Scp500IV : CustomItem
     {
-        public override uint Id { get; set; } = 261;
-        public override string Name { get; set; } = "SCP-500 HP";
-        public override string Description { get; set; } = "Increases your health from 100 to 150.";
+        public override uint Id { get; set; } = 40;
+        public override string Name { get; set; } = "SCP-500 IV";
+        public override string Description { get; set; } = "Makes you invisible for a brief amount of time.";
         public override float Weight { get; set; } = 1f;
         public override SpawnProperties? SpawnProperties { get; set; } = new()
         {
             Limit = 1,
-            DynamicSpawnPoints = new List<DynamicSpawnPoint>
+            StaticSpawnPoints = new List<StaticSpawnPoint>()
         {
             new()
             {
-                Chance = 0,
-                Location = SpawnLocationType.InsideLczArmory,
-            },
+                Chance = 100,
+                Name = "HczTestRoom",
+                Position =new Vector3(2.9f, 0f, -4.4f),
+            }
         },
         };
 
@@ -53,8 +55,14 @@ using Player = Exiled.Events.Handlers.Player;
         if (!Check(ev.Player.CurrentItem))
             return;
 
-        Exiled.API.Features.Player p = ev.Player;
-        p.Health = 150;
+        Timing.CallDelayed(1.3f, () =>
+        {
+            Exiled.API.Features.Player p = ev.Player;
+            p.EnableEffect(EffectType.Invisible, 15);
+            ev.IsAllowed = false;
+            ev.Player.RemoveItem(ev.Player.CurrentItem);
+        });
+
     }
 }
 

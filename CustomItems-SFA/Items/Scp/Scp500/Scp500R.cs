@@ -1,11 +1,10 @@
 ﻿namespace CustomItems_SFA.Items;
 
-using CustomPlayerEffects;
 using Exiled.API.Enums;
+using Exiled.API.Features;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
-using HarmonyLib;
 using MEC;
 using System;
 using System.Collections.Generic;
@@ -17,12 +16,12 @@ using Player = Exiled.Events.Handlers.Player;
 
 
 
-    [Exiled.API.Features.Attributes.CustomItem(ItemType.Painkillers)]
-    public class Steroids : CustomItem
-    { 
-        public override uint Id { get; set; } = 22;
-        public override string Name { get; set; } = "Steroids";
-        public override string Description { get; set; } = "Makes you fast... but with a catch, your life will suffer.";
+    [Exiled.API.Features.Attributes.CustomItem(ItemType.SCP500)]
+    public class Scp500R : CustomItem
+    {
+        public override uint Id { get; set; } = 41;
+        public override string Name { get; set; } = "SCP 500-R";
+        public override string Description { get; set; } = "Gives you 20 seconds of damage reduction, making you lose less health than usual if you were to be injured.";
         public override float Weight { get; set; } = 1f;
         public override SpawnProperties? SpawnProperties { get; set; } = new()
         {
@@ -31,7 +30,7 @@ using Player = Exiled.Events.Handlers.Player;
         {
             new()
             {
-                Chance = 0,
+                Chance = 100,
                 Location = SpawnLocationType.InsideLczArmory,
             },
         },
@@ -39,14 +38,14 @@ using Player = Exiled.Events.Handlers.Player;
 
         protected override void SubscribeEvents()
         {
-            Exiled.Events.Handlers.Player.UsingItem += OnUsingItem;
+            Player.UsingItem += OnUsingItem;
 
             base.SubscribeEvents();
         }
 
         protected override void UnsubscribeEvents()
         {
-        Exiled.Events.Handlers.Player.UsingItem -= OnUsingItem;
+            Player.UsingItem -= OnUsingItem;
 
             base.UnsubscribeEvents();
         }
@@ -56,20 +55,20 @@ using Player = Exiled.Events.Handlers.Player;
         if (!Check(ev.Player.CurrentItem))
             return;
 
-        Exiled.API.Features.Player p = ev.Player;
-
-        p.EnableEffect(EffectType.MovementBoost);
-        p.ChangeEffectIntensity(EffectType.MovementBoost, 100);
-
-        p.EnableEffect(EffectType.CardiacArrest);
-        p.ChangeEffectIntensity(EffectType.CardiacArrest, 1);
-
-        Timing.CallDelayed(30, () =>
+        Timing.CallDelayed(1.3f, () =>
         {
-            p.DisableEffect(EffectType.CardiacArrest);
-            p.DisableEffect(EffectType.MovementBoost);
+            Exiled.API.Features.Player p = ev.Player;
 
+            Effect DR = new Effect(EffectType.DamageReduction, 20, 150, false, true);
+            Effect BR = new Effect(EffectType.BodyshotReduction, 20, 150, false, true);
+
+            p.EnableEffect(DR);
+            p.EnableEffect(BR);
+
+            ev.IsAllowed = false;
+            ev.Player.RemoveItem(ev.Player.CurrentItem);
         });
+
     }
 }
 
